@@ -28,7 +28,7 @@ export default async function Home(props: Props) {
 
   return (
     <>
-      <Title title="Tienda" subtitle="Todos los productos" className="mb-2" />
+      <Title title="Store" subtitle="All Products" className="mb-2" />
 
       <ProductGrid products={products} />
 

@@ -47,7 +47,7 @@ export default async function ProductBySlugPage({ params }: Props) {
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-16">
             {/* Image Gallery */}
             <div className="col-span-1 space-y-6 lg:col-span-7">
-              <div className="overflow-hidden rounded-[24px] bg-gray-50/50 p-2 dark:bg-white/5">
+              <div className={`${titleFont.className} overflow-hidden rounded-[24px] bg-gray-50/50 p-2 dark:bg-white/5`}>
                 {/* Mobile Slideshow */}
                 <ProductMobileSlideshow
                   title={product.title}
@@ -95,7 +95,7 @@ export default async function ProductBySlugPage({ params }: Props) {
                 </div>
 
                 <div className="mb-10">
-                  <h3 className="mb-4 text-[10px] font-bold tracking-widest text-gray-500 uppercase dark:text-gray-400">Descripción</h3>
+                  <h3 className="mb-4 text-[10px] font-bold tracking-widest text-gray-500 uppercase dark:text-gray-400">Description</h3>
                   <p className="text-sm leading-relaxed font-light text-gray-600 dark:text-gray-300">{product.description}</p>
                 </div>
               </div>

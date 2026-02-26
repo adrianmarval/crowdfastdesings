@@ -48,7 +48,7 @@ export default async function CategoryPage(props: Props) {
 
   return (
     <>
-      <Title title={categoryTitle} subtitle={`Todos los productos de ${categoryTitle}`} className="mb-2" />
+      <Title title={categoryTitle} subtitle={`All products in ${categoryTitle}`} className="mb-2" />
 
       <ProductGrid products={products} />
 

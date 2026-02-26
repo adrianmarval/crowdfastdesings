@@ -30,13 +30,13 @@ export const TopMenu = () => {
 
       {/* Center Menu */}
       <div className="hidden sm:block">
-        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100" href="/category/dashboards">
+        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800" href="/category/dashboards">
           Dashboards
         </Link>
-        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100" href="/category/ecommerce">
+        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800" href="/category/ecommerce">
           E-Commerce
         </Link>
-        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100" href="/category/ui-kits">
+        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800" href="/category/ui-kits">
           UI Kits
         </Link>
       </div>
@@ -59,7 +59,7 @@ export const TopMenu = () => {
         </Link>
         <ThemeToggle />
 
-        <button onClick={openSideMenu} className="m-2 rounded-md p-2 transition-all hover:bg-gray-100">
+        <button onClick={openSideMenu} className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800">
           Menú
         </button>
       </div>

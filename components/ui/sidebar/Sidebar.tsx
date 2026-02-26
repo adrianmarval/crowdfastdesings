@@ -102,7 +102,7 @@ export const Sidebar = () => {
             onClick={() => closeMenu()}
           >
             <IoLogInOutline size={30} />
-            <span className="ml-3 text-xl">Ingresar</span>
+            <span className="ml-3 text-xl">Login</span>
           </Link>
         )}
 
@@ -117,7 +117,7 @@ export const Sidebar = () => {
               className="mt-10 flex items-center rounded p-2 transition-all hover:bg-gray-100"
             >
               <IoShirtOutline size={30} />
-              <span className="ml-3 text-xl">Productos</span>
+              <span className="ml-3 text-xl">Products</span>
             </Link>
 
             <Link
@@ -126,7 +126,7 @@ export const Sidebar = () => {
               className="mt-10 flex items-center rounded p-2 transition-all hover:bg-gray-100"
             >
               <IoTicketOutline size={30} />
-              <span className="ml-3 text-xl">Ordenes</span>
+              <span className="ml-3 text-xl">Orders</span>
             </Link>
 
             <Link
@@ -135,7 +135,7 @@ export const Sidebar = () => {
               className="mt-10 flex items-center rounded p-2 transition-all hover:bg-gray-100"
             >
               <IoPeopleOutline size={30} />
-              <span className="ml-3 text-xl">Usuarios</span>
+              <span className="ml-3 text-xl">Users</span>
             </Link>
           </>
         )}

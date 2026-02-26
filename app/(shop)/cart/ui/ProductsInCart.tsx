@@ -42,8 +42,8 @@ export const ProductsInCart = () => {
 
             <p>${product.price_usd}</p>
 
-            <button onClick={() => removeProduct(product)} className="mt-3 underline">
-              Remover
+            <button onClick={() => removeProduct(product)} className="mt-3 cursor-pointer underline">
+              Remove
             </button>
           </div>
         </div>
