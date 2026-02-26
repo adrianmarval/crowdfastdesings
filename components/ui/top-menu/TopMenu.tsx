@@ -7,10 +7,12 @@ import { IoSearchOutline, IoCartOutline } from 'react-icons/io5';
 import { titleFont } from '@/config/fonts';
 import { useCartStore, useUiStore } from '@/store/';
 import { ThemeToggle } from '../theme-toggle';
+import Image from 'next/image';
 
 export const TopMenu = () => {
   const openSideMenu = useUiStore((state) => state.openSideMenu);
   const totalItemsInCart = useCartStore((state) => state.getTotalItems());
+  const theme = useUiStore((state) => state.theme);
 
   const [loaded, setLoaded] = useState(false);
 
@@ -19,12 +21,23 @@ export const TopMenu = () => {
   }, []);
 
   return (
-    <nav className="flex w-full items-center justify-between px-5">
-      {/* Logo */}
-      <div>
-        <Link href="/">
-          <span className={`${titleFont.className} font-bold antialiased`}>Crowdfast</span>
-          <span> | Desings</span>
+    <nav className="flex h-16 w-full items-center justify-between px-2 sm:px-5">
+      <div className="flex items-center">
+        <Link href="/" className="flex items-center gap-1 transition-all hover:opacity-80 active:scale-95">
+          <Image
+            src="/logo.svg"
+            alt="Crowdfast Logo"
+            width={100}
+            height={100}
+            className="mt-4 h-10 w-10 object-contain sm:h-30 sm:w-30 dark:invert"
+            priority
+          />
+          <div className="mt-4 flex items-center whitespace-nowrap">
+            <span className={`${titleFont.className} text-lg font-bold antialiased sm:text-xl`}>Crowdfast</span>
+            <span className="hidden text-lg font-light sm:inline-block">
+              <span className="mx-1">|</span>Designs
+            </span>
+          </div>
         </Link>
       </div>
 

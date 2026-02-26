@@ -37,6 +37,31 @@ async function main() {
   });
 
   for (const folderName of productFolders) {
+    // 1. Limpiar nombre de carpeta físicamente
+    const safeFolderName = folderName
+      .toLowerCase()
+      .replace(/ /g, '-')
+      .replace(/[^\w-]+/g, '');
+
+    const oldFolderPath = path.join(productsDir, folderName);
+    const newFolderPath = path.join(productsDir, safeFolderName);
+
+    if (folderName !== safeFolderName) {
+      if (fs.existsSync(newFolderPath)) {
+        // Si ya existe la carpeta destino, movemos los archivos y borramos la vieja
+        const filesToMove = fs.readdirSync(oldFolderPath);
+        filesToMove.forEach((f) => {
+          fs.renameSync(path.join(oldFolderPath, f), path.join(newFolderPath, f));
+        });
+        fs.rmdirSync(oldFolderPath);
+      } else {
+        fs.renameSync(oldFolderPath, newFolderPath);
+      }
+    }
+
+    const currentFolderName = safeFolderName;
+    const currentFolderPath = newFolderPath;
+
     // Buscar metadata en el seed o usar defaults
     const seedProduct = seedProducts.find((p) => p.title === folderName);
 
@@ -54,15 +79,25 @@ async function main() {
 
     const categoryKey = seedProduct?.category || 'dashboards';
 
-    // Leer imagenes del directorio exacto local
-    const folderPath = path.join(productsDir, folderName);
-    const imageFiles = fs.readdirSync(folderPath).filter((file) => {
+    // 2. Leer y limpiar nombres de archivos
+    const imageFiles = fs.readdirSync(currentFolderPath).filter((file) => {
       return file.match(/\.(png|jpe?g|webp|gif|svg)$/i);
     });
 
-    // Guardaremos el path que espera nuestro componente: `/products/${folderName}/${file}` ya lo hacemos dinámicamente en UI
-    // Así que guardaremos sólamente `NombreCarpeta/nombre_imagen.png` para mantener URLs limpias.
-    const imagePaths = imageFiles.map((file) => `${folderName}/${file}`);
+    const imagePaths = imageFiles.map((file) => {
+      const ext = path.extname(file);
+      const name = path.basename(file, ext);
+      const safeFileName =
+        name
+          .toLowerCase()
+          .replace(/ /g, '-')
+          .replace(/[^\w-]+/g, '') + ext;
+
+      if (file !== safeFileName) {
+        fs.renameSync(path.join(currentFolderPath, file), path.join(currentFolderPath, safeFileName));
+      }
+      return `${currentFolderName}/${safeFileName}`;
+    });
 
     const dbProduct = await prisma.product.create({
       data: {
