@@ -1,0 +1,102 @@
+import type { CartProduct } from '@/interfaces';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+interface State {
+  cart: CartProduct[];
+
+  getTotalItems: () => number;
+  getSummaryInformation: () => {
+    subTotal: number;
+    tax: number;
+    total: number;
+    itemsInCart: number;
+  };
+
+  addProductTocart: (product: CartProduct) => void;
+  updateProductQuantity: (product: CartProduct, quantity: number) => void;
+  removeProduct: (product: CartProduct) => void;
+
+  clearCart: () => void;
+}
+
+export const useCartStore = create<State>()(
+  persist(
+    (set, get) => ({
+      cart: [],
+
+      // Methods
+      getTotalItems: () => {
+        const { cart } = get();
+        return cart.length;
+      },
+
+      getSummaryInformation: () => {
+        const { cart } = get();
+
+        const subTotal = cart.reduce((subTotal, product) => (product.price_usd || 0) + subTotal, 0);
+        const tax = subTotal * 0.15;
+        const total = subTotal + tax;
+        const itemsInCart = cart.length;
+
+        return {
+          subTotal,
+          tax,
+          total,
+          itemsInCart,
+        };
+      },
+
+      addProductTocart: (product: CartProduct) => {
+        const { cart } = get();
+
+        // 1. Revisar si el producto existe en el carrito
+        const productInCart = cart.some((item) => item.id === product.id);
+
+        if (!productInCart) {
+          set({ cart: [...cart, product] });
+          return;
+        }
+
+        // 2. Se que el producto existe... tengo que incrementar
+        const updatedCartProducts = cart.map((item) => {
+          if (item.id === product.id) {
+            return { ...item };
+          }
+
+          return item;
+        });
+
+        set({ cart: updatedCartProducts });
+      },
+
+      updateProductQuantity: (product: CartProduct, quantity: number) => {
+        const { cart } = get();
+
+        const updatedCartProducts = cart.map((item) => {
+          if (item.id === product.id) {
+            return { ...item, quantity: quantity };
+          }
+          return item;
+        });
+
+        set({ cart: updatedCartProducts });
+      },
+
+      removeProduct: (product: CartProduct) => {
+        const { cart } = get();
+        const updatedCartProducts = cart.filter((item) => item.id !== product.id);
+
+        set({ cart: updatedCartProducts });
+      },
+
+      clearCart: () => {
+        set({ cart: [] });
+      },
+    }),
+
+    {
+      name: 'shopping-cart',
+    },
+  ),
+);
