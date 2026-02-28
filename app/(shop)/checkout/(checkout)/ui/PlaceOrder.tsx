@@ -19,7 +19,7 @@ export const PlaceOrder = () => {
   const address = useAddressStore((state) => state.address);
 
   const { itemsInCart, subTotal, tax, total } = useCartStore(useShallow((state) => state.getSummaryInformation()));
-  const cart = useCartStore((state) => state.cart);
+  const cart = useCartStore(useShallow((state) => state.cart));
   const clearCart = useCartStore((state) => state.clearCart);
 
   useEffect(() => {

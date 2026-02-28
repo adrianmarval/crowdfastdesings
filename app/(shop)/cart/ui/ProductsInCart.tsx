@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react';
 import { useCartStore } from '@/store';
 import { ProductImage } from '@/components/product';
 import Link from 'next/link';
+import { useShallow } from 'zustand/react/shallow';
 
 export const ProductsInCart = () => {
   const removeProduct = useCartStore((state) => state.removeProduct);
 
   const [loaded, setLoaded] = useState(false);
-  const productsInCart = useCartStore((state) => state.cart);
+  const productsInCart = useCartStore(useShallow((state) => state.cart));
 
   useEffect(() => {
     setLoaded(true);

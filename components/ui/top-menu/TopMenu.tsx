@@ -14,10 +14,10 @@ export const TopMenu = () => {
   const totalItemsInCart = useCartStore((state) => state.getTotalItems());
   const theme = useUiStore((state) => state.theme);
 
-  const [loaded, setLoaded] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setLoaded(true);
+    setIsClient(true);
   }, []);
 
   return (
@@ -60,13 +60,13 @@ export const TopMenu = () => {
           <IoSearchOutline className="h-5 w-5" />
         </Link>
 
-        <Link href={totalItemsInCart === 0 && loaded ? '/empty' : '/cart'} className="mx-2">
+        <Link href={totalItemsInCart === 0 && isClient ? '/empty' : '/cart'} className="mx-2">
           <div className="relative">
-            {loaded && totalItemsInCart > 0 && (
+            {isClient && totalItemsInCart > 0 ? (
               <span className="fade-in absolute -top-2 -right-2 rounded-full bg-blue-700 px-1 text-xs font-bold text-white">
                 {totalItemsInCart}
               </span>
-            )}
+            ) : null}
             <IoCartOutline className="h-5 w-5" />
           </div>
         </Link>

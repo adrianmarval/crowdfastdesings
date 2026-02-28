@@ -39,12 +39,12 @@ export const Sidebar = () => {
   return (
     <div>
       {/* Background black */}
-      {isSideMenuOpen && <div className="fixed top-0 left-0 z-10 h-screen w-screen bg-black opacity-30" />}
+      {isSideMenuOpen ? <div className="fixed top-0 left-0 z-10 h-screen w-screen bg-black opacity-30" /> : null}
 
       {/* Blur */}
-      {isSideMenuOpen && (
+      {isSideMenuOpen ? (
         <div onClick={closeMenu} className="fade-in fixed top-0 left-0 z-10 h-screen w-screen backdrop-blur-sm backdrop-filter" />
-      )}
+      ) : null}
 
       {/* Sidemenu */}
       <nav
@@ -69,7 +69,7 @@ export const Sidebar = () => {
 
         {/* Menú */}
 
-        {isAuthenticated && (
+        {isAuthenticated ? (
           <>
             <Link
               href="/profile"
@@ -89,9 +89,9 @@ export const Sidebar = () => {
               <span className="ml-3 text-xl">Orders</span>
             </Link>
           </>
-        )}
+        ) : null}
 
-        {isAuthenticated && (
+        {isAuthenticated ? (
           <button
             className="mt-10 flex w-full items-center rounded p-2 transition-all hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700"
             onClick={handleLogOut}
@@ -99,9 +99,9 @@ export const Sidebar = () => {
             <IoLogOutOutline size={30} />
             <span className="ml-3 text-xl">Log out</span>
           </button>
-        )}
+        ) : null}
 
-        {!isAuthenticated && (
+        {!isAuthenticated ? (
           <Link
             href="/auth/login"
             className="mt-10 flex items-center rounded p-2 transition-all hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700"
@@ -110,9 +110,9 @@ export const Sidebar = () => {
             <IoLogInOutline size={30} />
             <span className="ml-3 text-xl">Login</span>
           </Link>
-        )}
+        ) : null}
 
-        {isAdmin && (
+        {isAdmin ? (
           <>
             {/* Line Separator */}
             <div className="my-10 h-px w-full bg-gray-200 dark:bg-gray-700" />
@@ -144,7 +144,7 @@ export const Sidebar = () => {
               <span className="ml-3 text-xl">Users</span>
             </Link>
           </>
-        )}
+        ) : null}
       </nav>
     </div>
   );

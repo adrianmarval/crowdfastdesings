@@ -3,11 +3,15 @@ import { Metadata, ResolvingMetadata } from 'next';
 
 import { notFound } from 'next/navigation';
 import { Star, Share2 } from 'lucide-react';
+import dynamic from 'next/dynamic';
 
 import { titleFont } from '@/config/fonts';
-import { ProductMobileSlideshow, ProductSlideshow, StockLabel } from '@/components/product';
+import { StockLabel } from '@/components/product';
 import { getProductBySlug } from '@/actions';
 import { AddToCart } from './ui/AddToCart';
+
+const ProductMobileSlideshow = dynamic(() => import('@/components/product').then((mod) => mod.ProductMobileSlideshow));
+const ProductSlideshow = dynamic(() => import('@/components/product').then((mod) => mod.ProductSlideshow));
 
 interface Props {
   params: Promise<{ slug: string }>;
