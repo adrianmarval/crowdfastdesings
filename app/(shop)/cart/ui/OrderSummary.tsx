@@ -30,13 +30,13 @@ export const OrderSummary = () => {
       <span className="text-right">{itemsInCart === 1 ? '1 item' : `${itemsInCart} items`}</span>
 
       <span>Subtotal</span>
-      <span className="text-right">{currencyFormat(subTotal)}</span>
+      <span className="text-right">{currencyFormat(subTotal)} USD</span>
 
       <span>Tax (15%)</span>
-      <span className="text-right">{currencyFormat(tax)}</span>
+      <span className="text-right">{currencyFormat(tax)} USD</span>
 
       <span className="mt-5 text-2xl">Total:</span>
-      <span className="mt-5 text-right text-2xl">{currencyFormat(total)}</span>
+      <span className="mt-5 text-right text-2xl font-bold">{currencyFormat(total)} USD</span>
     </div>
   );
 };

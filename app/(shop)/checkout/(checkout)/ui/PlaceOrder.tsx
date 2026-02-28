@@ -77,38 +77,57 @@ export const PlaceOrder = () => {
         <span className="text-right">{itemsInCart === 1 ? '1 item' : `${itemsInCart} items`}</span>
 
         <span>Subtotal</span>
-        <span className="text-right">{currencyFormat(subTotal)}</span>
+        <span className="text-right">{currencyFormat(subTotal)} USD</span>
 
         <span>Taxes (15%)</span>
-        <span className="text-right">{currencyFormat(tax)}</span>
+        <span className="text-right">{currencyFormat(tax)} USD</span>
 
         <span className="mt-5 text-2xl">Total:</span>
-        <span className="mt-5 text-right text-2xl">{currencyFormat(total)}</span>
+        <span className="mt-5 text-right text-2xl font-bold">{currencyFormat(total)} USD</span>
       </div>
 
       <div className="mt-5 mb-2 w-full">
         <p className="mb-5">
           {/* Disclaimer */}
-          <span className="text-xs">
+          <span className="text-xs text-gray-600 dark:text-gray-400">
             By clicking &quot;Place Order&quot;, you agree to our{' '}
-            <a href="#" className="underline">
+            <a href="/legal/terms" className="underline hover:text-gray-900 dark:hover:text-white" target="_blank">
               terms and conditions
             </a>{' '}
             and{' '}
-            <a href="#" className="underline">
+            <a href="/legal/privacy" className="underline hover:text-gray-900 dark:hover:text-white" target="_blank">
               privacy policy
             </a>
+            .
           </span>
         </p>
+
+        {/* Accepted Cards - Stripe Compliance */}
+        <div className="mb-4 flex items-center justify-center gap-2">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png"
+            alt="Visa"
+            className="h-4 object-contain opacity-70 grayscale"
+          />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png"
+            alt="Mastercard"
+            className="h-5 object-contain opacity-70 grayscale"
+          />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/200px-American_Express_logo_%282018%29.svg.png"
+            alt="American Express"
+            className="h-5 object-contain opacity-70 grayscale"
+          />
+        </div>
 
         <p className="text-red-500">{errorMessage}</p>
 
         <Button
-          // href="/orders/123"
           onClick={onPlaceOrder}
-          className={clsx({ 'h-10 w-1/2': true, 'btn-primary': !isPlacingOrder, 'btn-disabled': isPlacingOrder })}
+          className={clsx({ 'h-10 w-full font-bold': true, 'btn-primary': !isPlacingOrder, 'btn-disabled': isPlacingOrder })}
         >
-          Place Order
+          {isPlacingOrder ? 'Processing...' : `Pay Now`}
         </Button>
       </div>
     </div>

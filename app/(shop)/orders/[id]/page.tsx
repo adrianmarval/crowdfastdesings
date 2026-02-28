@@ -50,8 +50,8 @@ export default async function OrdersByIdPage({ params }: Props) {
 
                 <div>
                   <p>{item.product.title}</p>
-                  <p>${item.price}</p>
-                  <p className="font-bold">Subtotal: {currencyFormat(item.price)}</p>
+                  <p>${item.price} USD</p>
+                  <p className="font-bold">Subtotal: {currencyFormat(item.price)} USD</p>
                 </div>
               </div>
             ))}
@@ -83,13 +83,13 @@ export default async function OrdersByIdPage({ params }: Props) {
               <span className="text-right">{order?.itemsInOrder === 1 ? '1 item' : `${order?.itemsInOrder} items`}</span>
 
               <span>Subtotal</span>
-              <span className="text-right">{currencyFormat(order!.subTotal)}</span>
+              <span className="text-right">{currencyFormat(order!.subTotal)} USD</span>
 
               <span>Taxes (15%)</span>
-              <span className="text-right">{currencyFormat(order!.tax)}</span>
+              <span className="text-right">{currencyFormat(order!.tax)} USD</span>
 
               <span className="mt-5 text-2xl">Total:</span>
-              <span className="mt-5 text-right text-2xl">{currencyFormat(order!.total)}</span>
+              <span className="mt-5 text-right text-2xl font-bold">{currencyFormat(order!.total)} USD</span>
             </div>
 
             <div className="mt-5 mb-2 w-full">
