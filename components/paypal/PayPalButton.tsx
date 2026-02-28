@@ -1,0 +1,67 @@
+'use client';
+
+import { PayPalButtons, PayPalButtonsComponentProps, usePayPalScriptReducer } from '@paypal/react-paypal-js';
+import { CreateOrderData, CreateOrderActions, OnApproveActions, OnApproveData } from '@paypal/paypal-js';
+import { paypalCheckPayment, setTransactionId } from '@/actions';
+
+interface Props {
+  orderId: string;
+  amount: number;
+}
+
+const styles: PayPalButtonsComponentProps['style'] = {
+  layout: 'vertical',
+  color: 'gold',
+  shape: 'sharp',
+  label: 'checkout',
+  borderRadius: 0,
+  disableMaxWidth: true,
+};
+
+export const PayPalButton = ({ orderId, amount }: Props) => {
+  const [{ isPending }] = usePayPalScriptReducer();
+
+  const rountedAmount = Math.round(amount * 100) / 100; //123.23
+
+  if (isPending) {
+    return (
+      <div className="mb-16 animate-pulse">
+        <div className="h-11 rounded bg-gray-300 dark:bg-[#2f2d2d]" />
+        <div className="mt-2 h-11 rounded bg-gray-300 dark:bg-[#2f2d2d]" />
+      </div>
+    );
+  }
+
+  const createOrder = async (data: CreateOrderData, actions: CreateOrderActions): Promise<string> => {
+    const transactionId = await actions.order.create({
+      intent: 'CAPTURE',
+      purchase_units: [
+        {
+          description: 'Orden #' + orderId,
+
+          invoice_id: orderId,
+          amount: {
+            currency_code: 'USD',
+            value: `${rountedAmount}`,
+          },
+        },
+      ],
+    });
+
+    const { ok } = await setTransactionId(orderId, transactionId);
+    if (!ok) {
+      throw new Error('No se pudo actualizar la orden');
+    }
+
+    return transactionId;
+  };
+
+  const onApprove = async (data: OnApproveData, actions: OnApproveActions) => {
+    const details = await actions.order?.capture();
+    if (!details) return;
+
+    await paypalCheckPayment(details.id!);
+  };
+
+  return <PayPalButtons createOrder={createOrder} onApprove={onApprove} style={styles} className="bg-white dark:bg-[#2f2d2d]" />;
+};

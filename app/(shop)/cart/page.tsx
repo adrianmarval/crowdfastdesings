@@ -21,14 +21,12 @@ export default function CartPage() {
             <ProductsInCart />
           </div>
           {/* Checkout - Resumen de orden */}
-          <div className="h-fit rounded-xl bg-white p-7 shadow-xl">
+          <div className="h-fit rounded-xl bg-white p-7 dark:bg-[#2f2d2d]">
             <h2 className="mb-2 text-2xl">Order Summary</h2>
             <OrderSummary />
-            <Button className="mt-5 mb-2 w-full rounded-sm bg-blue-600 py-5 text-lg text-white hover:bg-blue-700">
-              <Link className="flex justify-center" href="/checkout/address">
-                Checkout
-              </Link>
-            </Button>
+            <Link className="flex h-10 w-1/2 justify-center" href="/checkout/address">
+              <Button className="mt-5 mb-2 w-full rounded-sm bg-blue-600 py-5 text-lg text-white hover:bg-blue-700">Checkout</Button>
+            </Link>
           </div>
         </div>
       </div>

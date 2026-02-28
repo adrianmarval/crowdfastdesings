@@ -2,8 +2,12 @@ import prisma from '../lib/prisma';
 import { initialData } from './seed';
 import fs from 'fs';
 import path from 'path';
+import { countries } from './seed-countries';
 
 async function main() {
+  await prisma.orderAddress.deleteMany();
+  await prisma.userAddress.deleteMany();
+  await prisma.country.deleteMany();
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
@@ -14,6 +18,10 @@ async function main() {
   // await prisma.user.createMany({
   //   data: users,
   // });
+
+  await prisma.country.createMany({
+    data: countries,
+  });
 
   // 2. Crear Categorías
   const categoriesData = categories.map((name) => ({ name }));
@@ -37,35 +45,15 @@ async function main() {
   });
 
   for (const folderName of productFolders) {
-    // 1. Limpiar nombre de carpeta físicamente
-    const safeFolderName = folderName
-      .toLowerCase()
-      .replace(/ /g, '-')
-      .replace(/[^\w-]+/g, '');
-
-    const oldFolderPath = path.join(productsDir, folderName);
-    const newFolderPath = path.join(productsDir, safeFolderName);
-
-    if (folderName !== safeFolderName) {
-      if (fs.existsSync(newFolderPath)) {
-        // Si ya existe la carpeta destino, movemos los archivos y borramos la vieja
-        const filesToMove = fs.readdirSync(oldFolderPath);
-        filesToMove.forEach((f) => {
-          fs.renameSync(path.join(oldFolderPath, f), path.join(newFolderPath, f));
-        });
-        fs.rmdirSync(oldFolderPath);
-      } else {
-        fs.renameSync(oldFolderPath, newFolderPath);
-      }
-    }
-
-    const currentFolderName = safeFolderName;
-    const currentFolderPath = newFolderPath;
-
     // Buscar metadata en el seed o usar defaults
-    const seedProduct = seedProducts.find((p) => p.title === folderName);
+    const seedProduct = seedProducts.find((p) => p.slug === folderName);
 
-    const title = folderName;
+    const title =
+      seedProduct?.title ||
+      folderName
+        .split('-')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
     const slug = title
       .toLowerCase()
       .replace(/ /g, '-')
@@ -79,25 +67,15 @@ async function main() {
 
     const categoryKey = seedProduct?.category || 'dashboards';
 
-    // 2. Leer y limpiar nombres de archivos
-    const imageFiles = fs.readdirSync(currentFolderPath).filter((file) => {
+    // Leer imagenes del directorio exacto local
+    const folderPath = path.join(productsDir, folderName);
+    const imageFiles = fs.readdirSync(folderPath).filter((file) => {
       return file.match(/\.(png|jpe?g|webp|gif|svg)$/i);
     });
 
-    const imagePaths = imageFiles.map((file) => {
-      const ext = path.extname(file);
-      const name = path.basename(file, ext);
-      const safeFileName =
-        name
-          .toLowerCase()
-          .replace(/ /g, '-')
-          .replace(/[^\w-]+/g, '') + ext;
-
-      if (file !== safeFileName) {
-        fs.renameSync(path.join(currentFolderPath, file), path.join(currentFolderPath, safeFileName));
-      }
-      return `${currentFolderName}/${safeFileName}`;
-    });
+    // Guardaremos el path que espera nuestro componente: `/products/${folderName}/${file}` ya lo hacemos dinámicamente en UI
+    // Así que guardaremos sólamente `NombreCarpeta/nombre_imagen.png` para mantener URLs limpias.
+    const imagePaths = imageFiles.map((file) => `${folderName}/${file}`);
 
     const dbProduct = await prisma.product.create({
       data: {

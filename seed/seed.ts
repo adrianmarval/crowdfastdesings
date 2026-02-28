@@ -86,7 +86,7 @@ export const initialData: SeedData = {
         '/products/Analytics%20Insights%20Dashboard/Screenshot 2026-01-22 at 7.29.24 PM.png',
         '/products/Analytics%20Insights%20Dashboard/Screenshot 2026-01-22 at 7.29.30 PM.png',
         '/products/Analytics%20Insights%20Dashboard/Screenshot 2026-01-22 at 7.29.52 PM.png',
-        '/products/Analytics%20Insights%20Dashboard/Screenshot 2026-01-22 at 7.30.16 PM.png'
+        '/products/Analytics%20Insights%20Dashboard/Screenshot 2026-01-22 at 7.30.16 PM.png',
       ],
       tags: ['react'],
       category: 'dashboards',
@@ -130,7 +130,7 @@ export const initialData: SeedData = {
         '/products/Argon%20Dashboard%20Chakra%20PRO/Screenshot 2026-02-25 at 1.25.07 PM.png',
         '/products/Argon%20Dashboard%20Chakra%20PRO/Screenshot 2026-02-25 at 1.25.18 PM.png',
         '/products/Argon%20Dashboard%20Chakra%20PRO/Screenshot 2026-02-25 at 1.25.22 PM.png',
-        '/products/Argon%20Dashboard%20Chakra%20PRO/Screenshot 2026-02-25 at 1.25.31 PM.png'
+        '/products/Argon%20Dashboard%20Chakra%20PRO/Screenshot 2026-02-25 at 1.25.31 PM.png',
       ],
       tags: ['react'],
       category: 'dashboards',
@@ -157,7 +157,7 @@ export const initialData: SeedData = {
         '/products/Argon%20Dashboard%20PRO%20Material-UI-V4/Screenshot 2026-02-25 at 1.21.40 PM.png',
         '/products/Argon%20Dashboard%20PRO%20Material-UI-V4/Screenshot 2026-02-25 at 1.21.49 PM.png',
         '/products/Argon%20Dashboard%20PRO%20Material-UI-V4/Screenshot 2026-02-25 at 1.21.53 PM.png',
-        '/products/Argon%20Dashboard%20PRO%20Material-UI-V4/Screenshot 2026-02-25 at 1.21.57 PM.png'
+        '/products/Argon%20Dashboard%20PRO%20Material-UI-V4/Screenshot 2026-02-25 at 1.21.57 PM.png',
       ],
       tags: ['react'],
       category: 'dashboards',
@@ -176,7 +176,7 @@ export const initialData: SeedData = {
         '/products/Argon%20Dashboard%20React/Screenshot 2026-02-25 at 1.12.04 PM.png',
         '/products/Argon%20Dashboard%20React/Screenshot 2026-02-25 at 1.12.11 PM.png',
         '/products/Argon%20Dashboard%20React/Screenshot 2026-02-25 at 1.12.15 PM.png',
-        '/products/Argon%20Dashboard%20React/Screenshot 2026-02-25 at 1.12.22 PM.png'
+        '/products/Argon%20Dashboard%20React/Screenshot 2026-02-25 at 1.12.22 PM.png',
       ],
       tags: ['react'],
       category: 'dashboards',
@@ -199,7 +199,7 @@ export const initialData: SeedData = {
         '/products/AstroLaunch%20UI%20Pro/Screenshot 2026-02-25 at 3.15.16 PM.png',
         '/products/AstroLaunch%20UI%20Pro/Screenshot 2026-02-25 at 3.15.19 PM.png',
         '/products/AstroLaunch%20UI%20Pro/Screenshot 2026-02-25 at 3.15.28 PM.png',
-        '/products/AstroLaunch%20UI%20Pro/Screenshot 2026-02-25 at 3.15.32 PM.png'
+        '/products/AstroLaunch%20UI%20Pro/Screenshot 2026-02-25 at 3.15.32 PM.png',
       ],
       tags: ['astro'],
       category: 'landing-pages',
@@ -236,7 +236,7 @@ export const initialData: SeedData = {
         '/products/Black%20Dashboard%20PRO%20React/Screenshot 2026-02-25 at 3.27.00 PM.png',
         '/products/Black%20Dashboard%20PRO%20React/Screenshot 2026-02-25 at 3.27.12 PM.png',
         '/products/Black%20Dashboard%20PRO%20React/Screenshot 2026-02-25 at 3.27.16 PM.png',
-        '/products/Black%20Dashboard%20PRO%20React/Screenshot 2026-02-25 at 3.27.21 PM.png'
+        '/products/Black%20Dashboard%20PRO%20React/Screenshot 2026-02-25 at 3.27.21 PM.png',
       ],
       tags: ['react'],
       category: 'dashboards',
@@ -260,7 +260,7 @@ export const initialData: SeedData = {
         '/products/CRM%20Web%20App/Screenshot 2026-01-22 at 8.19.20 PM.png',
         '/products/CRM%20Web%20App/Screenshot 2026-01-22 at 8.19.26 PM.png',
         '/products/CRM%20Web%20App/Screenshot 2026-01-22 at 8.19.31 PM.png',
-        '/products/CRM%20Web%20App/Screenshot 2026-01-22 at 8.19.37 PM.png'
+        '/products/CRM%20Web%20App/Screenshot 2026-01-22 at 8.19.37 PM.png',
       ],
       tags: ['react'],
       category: 'saas',
@@ -287,7 +287,7 @@ export const initialData: SeedData = {
         '/products/Community%20Forum%20Platform/Screenshot 2026-01-22 at 7.58.17 PM.png',
         '/products/Community%20Forum%20Platform/Screenshot 2026-01-22 at 7.59.04 PM.png',
         '/products/Community%20Forum%20Platform/Screenshot 2026-01-22 at 7.59.50 PM.png',
-        '/products/Community%20Forum%20Platform/Screenshot 2026-01-22 at 8.00.10 PM.png'
+        '/products/Community%20Forum%20Platform/Screenshot 2026-01-22 at 8.00.10 PM.png',
       ],
       tags: ['react'],
       category: 'saas',
@@ -311,7 +311,7 @@ export const initialData: SeedData = {
         '/products/Creator%20Influencer%20Platform/Screenshot 2026-01-22 at 8.15.13 PM.png',
         '/products/Creator%20Influencer%20Platform/Screenshot 2026-01-22 at 8.15.24 PM.png',
         '/products/Creator%20Influencer%20Platform/Screenshot 2026-01-22 at 8.15.33 PM.png',
-        '/products/Creator%20Influencer%20Platform/Screenshot 2026-01-22 at 8.15.47 PM.png'
+        '/products/Creator%20Influencer%20Platform/Screenshot 2026-01-22 at 8.15.47 PM.png',
       ],
       tags: ['react'],
       category: 'dashboards',
@@ -337,7 +337,7 @@ export const initialData: SeedData = {
         '/products/Digital%20Products%20Store/Screenshot 2026-01-22 at 8.25.53 PM.png',
         '/products/Digital%20Products%20Store/Screenshot 2026-01-22 at 8.26.00 PM.png',
         '/products/Digital%20Products%20Store/Screenshot 2026-01-22 at 8.26.06 PM.png',
-        '/products/Digital%20Products%20Store/Screenshot 2026-01-22 at 8.26.14 PM.png'
+        '/products/Digital%20Products%20Store/Screenshot 2026-01-22 at 8.26.14 PM.png',
       ],
       tags: ['react'],
       category: 'ecommerce',
@@ -366,7 +366,7 @@ export const initialData: SeedData = {
         '/products/Ecommerce%20General/Screenshot 2026-01-23 at 12.28.15 PM.png',
         '/products/Ecommerce%20General/Screenshot 2026-01-23 at 12.28.27 PM.png',
         '/products/Ecommerce%20General/Screenshot 2026-01-23 at 12.28.54 PM.png',
-        '/products/Ecommerce%20General/Screenshot 2026-01-23 at 12.29.11 PM.png'
+        '/products/Ecommerce%20General/Screenshot 2026-01-23 at 12.29.11 PM.png',
       ],
       tags: ['react'],
       category: 'ecommerce',
@@ -395,7 +395,7 @@ export const initialData: SeedData = {
         '/products/Everest%20Admin%20Dashboard/Screenshot 2026-01-22 at 6.22.42 PM.png',
         '/products/Everest%20Admin%20Dashboard/Screenshot 2026-01-22 at 6.23.14 PM.png',
         '/products/Everest%20Admin%20Dashboard/Screenshot 2026-01-22 at 6.23.32 PM.png',
-        '/products/Everest%20Admin%20Dashboard/Screenshot 2026-01-22 at 6.23.56 PM.png'
+        '/products/Everest%20Admin%20Dashboard/Screenshot 2026-01-22 at 6.23.56 PM.png',
       ],
       tags: ['react'],
       category: 'dashboards',
@@ -428,7 +428,7 @@ export const initialData: SeedData = {
         '/products/Light%20Bootstrap%20Dashboard%20PRO%20React/Screenshot 2026-02-25 at 3.23.25 PM.png',
         '/products/Light%20Bootstrap%20Dashboard%20PRO%20React/Screenshot 2026-02-25 at 3.23.32 PM.png',
         '/products/Light%20Bootstrap%20Dashboard%20PRO%20React/Screenshot 2026-02-25 at 3.23.36 PM.png',
-        '/products/Light%20Bootstrap%20Dashboard%20PRO%20React/Screenshot 2026-02-25 at 3.23.45 PM.png'
+        '/products/Light%20Bootstrap%20Dashboard%20PRO%20React/Screenshot 2026-02-25 at 3.23.45 PM.png',
       ],
       tags: ['react'],
       category: 'dashboards',
@@ -461,7 +461,7 @@ export const initialData: SeedData = {
         '/products/Marketplace%20Multivendor/Screenshot 2026-01-23 at 2.13.05 PM.png',
         '/products/Marketplace%20Multivendor/Screenshot 2026-01-23 at 2.13.13 PM.png',
         '/products/Marketplace%20Multivendor/Screenshot 2026-01-23 at 2.13.23 PM.png',
-        '/products/Marketplace%20Multivendor/Screenshot 2026-01-23 at 2.14.26 PM.png'
+        '/products/Marketplace%20Multivendor/Screenshot 2026-01-23 at 2.14.26 PM.png',
       ],
       tags: ['react'],
       category: 'ecommerce',
@@ -499,7 +499,7 @@ export const initialData: SeedData = {
         '/products/Material%20Dashboard%203%20PRO%20React/Screenshot 2026-02-25 at 3.20.27 PM.png',
         '/products/Material%20Dashboard%203%20PRO%20React/Screenshot 2026-02-25 at 3.20.41 PM.png',
         '/products/Material%20Dashboard%203%20PRO%20React/Screenshot 2026-02-25 at 3.20.45 PM.png',
-        '/products/Material%20Dashboard%203%20PRO%20React/Screenshot 2026-02-25 at 3.20.51 PM.png'
+        '/products/Material%20Dashboard%203%20PRO%20React/Screenshot 2026-02-25 at 3.20.51 PM.png',
       ],
       tags: ['react'],
       category: 'dashboards',
@@ -523,7 +523,7 @@ export const initialData: SeedData = {
         '/products/Material%20Dashboard%20Material-UI%20v4/Screenshot 2026-02-25 at 3.17.35 PM.png',
         '/products/Material%20Dashboard%20Material-UI%20v4/Screenshot 2026-02-25 at 3.17.41 PM.png',
         '/products/Material%20Dashboard%20Material-UI%20v4/Screenshot 2026-02-25 at 3.17.47 PM.png',
-        '/products/Material%20Dashboard%20Material-UI%20v4/Screenshot 2026-02-25 at 3.17.52 PM.png'
+        '/products/Material%20Dashboard%20Material-UI%20v4/Screenshot 2026-02-25 at 3.17.52 PM.png',
       ],
       tags: ['react'],
       category: 'dashboards',
@@ -560,7 +560,7 @@ export const initialData: SeedData = {
         '/products/NextJS%20Material%20Dashboard%20PRO%20Material-UI%20v4/Screenshot 2026-02-25 at 3.10.24 PM.png',
         '/products/NextJS%20Material%20Dashboard%20PRO%20Material-UI%20v4/Screenshot 2026-02-25 at 3.10.39 PM.png',
         '/products/NextJS%20Material%20Dashboard%20PRO%20Material-UI%20v4/Screenshot 2026-02-25 at 3.10.44 PM.png',
-        '/products/NextJS%20Material%20Dashboard%20PRO%20Material-UI%20v4/Screenshot 2026-02-25 at 3.11.01 PM.png'
+        '/products/NextJS%20Material%20Dashboard%20PRO%20Material-UI%20v4/Screenshot 2026-02-25 at 3.11.01 PM.png',
       ],
       tags: ['nextjs'],
       category: 'dashboards',
@@ -598,7 +598,7 @@ export const initialData: SeedData = {
         '/products/NextJS%20Material%20Tailwind%20Dashboard%20PRO/Screenshot 2026-02-25 at 2.24.57 PM.png',
         '/products/NextJS%20Material%20Tailwind%20Dashboard%20PRO/Screenshot 2026-02-25 at 2.25.04 PM.png',
         '/products/NextJS%20Material%20Tailwind%20Dashboard%20PRO/Screenshot 2026-02-25 at 2.25.08 PM.png',
-        '/products/NextJS%20Material%20Tailwind%20Dashboard%20PRO/Screenshot 2026-02-25 at 2.25.17 PM.png'
+        '/products/NextJS%20Material%20Tailwind%20Dashboard%20PRO/Screenshot 2026-02-25 at 2.25.17 PM.png',
       ],
       tags: ['nextjs'],
       category: 'dashboards',
@@ -617,7 +617,7 @@ export const initialData: SeedData = {
         '/products/Notus%20React/Screenshot 2026-02-25 at 1.14.06 PM.png',
         '/products/Notus%20React/Screenshot 2026-02-25 at 1.14.14 PM.png',
         '/products/Notus%20React/Screenshot 2026-02-25 at 1.14.23 PM.png',
-        '/products/Notus%20React/Screenshot 2026-02-25 at 1.14.28 PM.png'
+        '/products/Notus%20React/Screenshot 2026-02-25 at 1.14.28 PM.png',
       ],
       tags: ['react'],
       category: 'ui-kits',
@@ -637,7 +637,7 @@ export const initialData: SeedData = {
         '/products/Paper%20Dashboard%20React/Screenshot 2026-02-25 at 1.18.22 PM.png',
         '/products/Paper%20Dashboard%20React/Screenshot 2026-02-25 at 1.18.28 PM.png',
         '/products/Paper%20Dashboard%20React/Screenshot 2026-02-25 at 1.18.34 PM.png',
-        '/products/Paper%20Dashboard%20React/Screenshot 2026-02-25 at 1.18.38 PM.png'
+        '/products/Paper%20Dashboard%20React/Screenshot 2026-02-25 at 1.18.38 PM.png',
       ],
       tags: ['react'],
       category: 'dashboards',
@@ -657,7 +657,7 @@ export const initialData: SeedData = {
         '/products/Purity%20UI%20Dashboard%20PRO/Screenshot 2026-02-25 at 1.19.42 PM.png',
         '/products/Purity%20UI%20Dashboard%20PRO/Screenshot 2026-02-25 at 1.19.48 PM.png',
         '/products/Purity%20UI%20Dashboard%20PRO/Screenshot 2026-02-25 at 1.19.53 PM.png',
-        '/products/Purity%20UI%20Dashboard%20PRO/Screenshot 2026-02-25 at 1.19.59 PM.png'
+        '/products/Purity%20UI%20Dashboard%20PRO/Screenshot 2026-02-25 at 1.19.59 PM.png',
       ],
       tags: ['react'],
       category: 'dashboards',
@@ -696,7 +696,7 @@ export const initialData: SeedData = {
         '/products/Vision%20UI%20Dashboard%20PRO%20Chakra/Screenshot 2026-02-25 at 1.28.28 PM.png',
         '/products/Vision%20UI%20Dashboard%20PRO%20Chakra/Screenshot 2026-02-25 at 1.28.34 PM.png',
         '/products/Vision%20UI%20Dashboard%20PRO%20Chakra/Screenshot 2026-02-25 at 1.28.42 PM.png',
-        '/products/Vision%20UI%20Dashboard%20PRO%20Chakra/Screenshot 2026-02-25 at 1.28.48 PM.png'
+        '/products/Vision%20UI%20Dashboard%20PRO%20Chakra/Screenshot 2026-02-25 at 1.28.48 PM.png',
       ],
       tags: ['react'],
       category: 'dashboards',

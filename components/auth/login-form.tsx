@@ -5,30 +5,30 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-
-import { useRouter } from 'next/navigation';
-
 import { authClient } from '@/lib/auth-client';
 import { Alert, AlertDescription } from '../ui/alert';
 import { Terminal } from 'lucide-react';
-
 import { IconLoader } from '@tabler/icons-react';
-
 import { z } from 'zod';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
   password: z.string().min(1, 'Password is required'),
 });
 
-export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
-  const router = useRouter();
+interface LoginFormProps extends React.ComponentProps<'div'> {
+  returnTo?: string;
+}
 
+export function LoginForm({ className, returnTo = '/', ...props }: LoginFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -40,36 +40,18 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
       return;
     }
 
-    const { data, error } = await authClient.signIn.email(
+    await authClient.signIn.email(
       {
-        /**
-         * The user email
-         */
         email,
-        /**
-         * The user password
-         */
         password,
-        /**
-         * a url to redirect to after the user verifies their email (optional)
-         */
-        callbackURL: `${window.location.origin}/`,
-        /**
-         * remember the user session after the browser is closed.
-         * @default true
-         */
         rememberMe: false,
       },
       {
-        onRequest: (ctx) => {
-          setLoading(true);
-        },
-        onSuccess: (ctx) => {
-          // redirect to the dashboard
-          router.push('/');
+        onRequest: () => setLoading(true),
+        onSuccess: () => {
+          router.push(returnTo);
         },
         onError: (ctx) => {
-          // display the error message
           setError(ctx.error.message);
           setLoading(false);
         },
@@ -124,9 +106,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
             </div>
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{' '}
-              <a href="/signup" className="underline underline-offset-4">
+              <Link href={`/auth/signup?returnTo=${returnTo}`} className="underline underline-offset-4">
                 Sign up
-              </a>
+              </Link>
             </div>
           </form>
         </CardContent>

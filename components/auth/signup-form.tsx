@@ -5,16 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-
-import { useRouter } from 'next/navigation';
-
 import { authClient } from '@/lib/auth-client';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { Terminal } from 'lucide-react';
-
 import { IconLoader } from '@tabler/icons-react';
-
 import { z } from 'zod';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const signupSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -22,12 +19,16 @@ const signupSchema = z.object({
   password: z.string().min(8, 'Password must be at least 8 characters'),
 });
 
-export function SignupForm({ className, ...props }: React.ComponentProps<'div'>) {
-  const router = useRouter();
+interface SignupFormProps extends React.ComponentProps<'div'> {
+  returnTo?: string;
+}
 
+export function SignupForm({ className, returnTo = '/', ...props }: SignupFormProps) {
   const [fullname, setFullname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const router = useRouter();
 
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -43,37 +44,19 @@ export function SignupForm({ className, ...props }: React.ComponentProps<'div'>)
       return;
     }
 
-    const { data, error } = await authClient.signUp.email(
+    await authClient.signUp.email(
       {
-        /**
-         * The user email
-         */
         email,
-        /**
-         * The user password
-         */
         password,
-        /**
-         * remember the user session after the browser is closed.
-         * @default true
-         */
         name: fullname,
-        /**
-         * a url to redirect to after the user verifies their email (optional)
-         */
-        callbackURL: `${window.location.origin}`,
       },
       {
-        onRequest: (ctx) => {
-          setLoading(true);
-        },
-        onSuccess: (ctx) => {
-          // set success state instead of redirecting immediately
-          // since email verification is required
+        onRequest: () => setLoading(true),
+        onSuccess: () => {
           setSuccess(true);
+          router.push(returnTo);
         },
         onError: (ctx) => {
-          // display the error message
           setError(ctx.error.message);
           setLoading(false);
         },
@@ -145,9 +128,9 @@ export function SignupForm({ className, ...props }: React.ComponentProps<'div'>)
               </div>
               <div className="mt-4 text-center text-sm">
                 Already have an account?{' '}
-                <a href="/login" className="underline underline-offset-4">
+                <Link href={`/auth/login?returnTo=${returnTo}`} className="underline underline-offset-4">
                   Login
-                </a>
+                </Link>
               </div>
             </form>
           )}

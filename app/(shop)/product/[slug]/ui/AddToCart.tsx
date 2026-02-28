@@ -3,6 +3,7 @@
 import { ShoppingCart } from 'lucide-react';
 import type { CartProduct, Product } from '@/interfaces';
 import { useCartStore } from '@/store';
+import { Button } from '@/components/ui/button';
 
 interface Props {
   product: Product;
@@ -24,14 +25,14 @@ export const AddToCart = ({ product }: Props) => {
   };
 
   return (
-    <>
-      <button
+    <div className="flex items-center justify-center">
+      <Button
         onClick={addToCart}
-        className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-[#4a72ff] py-4 font-bold text-white shadow-[0_10px_30px_rgba(74,114,255,0.3)] transition-all duration-300 hover:bg-[#3d61e6] active:scale-[0.98]"
+        className="group flex w-3/5 items-center justify-center gap-3 rounded-2xl bg-[#4a72ff] py-6 font-bold text-white shadow-[0_10px_30px_rgba(74,114,255,0.3)] transition-all duration-300 hover:bg-[#3d61e6] active:scale-90"
       >
         <ShoppingCart size={20} className="transition-transform group-hover:translate-x-1" />
         AGREGAR AL CARRITO
-      </button>
-    </>
+      </Button>
+    </div>
   );
 };
