@@ -5,6 +5,8 @@ import { PrismaClient } from '@/generated/prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { sendEmail } from './email';
 
+import { getResetPasswordEmailHtml, getVerificationEmailHtml } from './email-templates';
+
 const adapter = new PrismaPg({ connectionString: env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
@@ -26,7 +28,7 @@ export const auth = betterAuth({
         to: user.email,
         subject: 'Reset your password',
         text: `Click the link to reset your password: ${url}`,
-        html: `<p>Click the link below to reset your password:</p><p><a href="${url}">Reset Password</a></p>`,
+        html: getResetPasswordEmailHtml(url),
       });
     },
   },
@@ -37,7 +39,7 @@ export const auth = betterAuth({
         to: user.email,
         subject: 'Verify your email address',
         text: `Click the link to verify your email: ${url}`,
-        html: `<p>Click the link below to verify your email address:</p><p><a href="${url}">Verify Email</a></p>`,
+        html: getVerificationEmailHtml(url),
       });
     },
   },

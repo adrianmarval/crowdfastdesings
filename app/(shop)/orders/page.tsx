@@ -23,6 +23,9 @@ export default async function OrdersPage() {
         <table className="min-w-full">
           <thead className="border-b bg-gray-200 dark:border-gray-700 dark:bg-gray-800">
             <tr>
+              <th scope="col" className="hidden px-6 py-4 text-left text-sm font-medium text-gray-900 md:block dark:text-gray-100">
+                Date
+              </th>
               <th scope="col" className="px-6 py-4 text-left text-sm font-medium text-gray-900 dark:text-gray-100">
                 #ID
               </th>
@@ -43,6 +46,16 @@ export default async function OrdersPage() {
                 key={order.id}
                 className="border-b bg-white transition duration-300 ease-in-out hover:bg-gray-100 dark:border-gray-700 dark:bg-[#2f2d2d] dark:hover:bg-gray-700"
               >
+                <td className="hidden px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900 md:block dark:text-gray-100">
+                  {order.createdAt.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    second: 'numeric',
+                  })}
+                </td>
                 <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-gray-100">
                   {order.id.split('-').at(-1)}
                 </td>

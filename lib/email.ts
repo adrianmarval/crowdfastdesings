@@ -14,7 +14,7 @@ export async function sendEmail({ to, subject, text, html }: { to: string; subje
     const data = await resend!.emails.send({
       from: 'contact@giftcardshop.app',
       to: [to],
-      subject,
+      subject: `[Crowdfast Designs] - ${subject}`,
       text,
       html,
     });
