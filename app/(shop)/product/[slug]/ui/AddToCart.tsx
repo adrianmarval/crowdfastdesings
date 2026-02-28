@@ -31,7 +31,7 @@ export const AddToCart = ({ product }: Props) => {
         className="group flex w-3/5 items-center justify-center gap-3 rounded-2xl bg-[#4a72ff] py-6 font-bold text-white shadow-[0_10px_30px_rgba(74,114,255,0.3)] transition-all duration-300 hover:bg-[#3d61e6] active:scale-90"
       >
         <ShoppingCart size={20} className="transition-transform group-hover:translate-x-1" />
-        AGREGAR AL CARRITO
+        ADD TO CART
       </Button>
     </div>
   );

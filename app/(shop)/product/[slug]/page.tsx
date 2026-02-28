@@ -21,10 +21,10 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
   const product = await getProductBySlug(slug);
 
   return {
-    title: product?.title ?? 'Producto no encontrado',
+    title: product?.title ?? 'Product not found',
     description: product?.description ?? '',
     openGraph: {
-      title: product?.title ?? 'Producto no encontrado',
+      title: product?.title ?? 'Product not found',
       description: product?.description ?? '',
       images: [`/products/${product?.images[1]}`],
     },

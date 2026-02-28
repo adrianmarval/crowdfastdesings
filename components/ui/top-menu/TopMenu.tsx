@@ -73,7 +73,7 @@ export const TopMenu = () => {
         <ThemeToggle />
 
         <button onClick={openSideMenu} className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800">
-          Menú
+          Menu
         </button>
       </div>
     </nav>

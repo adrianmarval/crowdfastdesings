@@ -26,7 +26,7 @@ export default async function OrdersByIdPage({ params }: Props) {
   return (
     <div className="mb-72 flex items-center justify-center px-10 sm:px-0">
       <div className="flex w-[1000px] flex-col">
-        <Title title={`Orden #${id.split('-').at(-1)}`} />
+        <Title title={`Order #${id.split('-').at(-1)}`} />
 
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
           {/* Carrito */}
@@ -59,7 +59,7 @@ export default async function OrdersByIdPage({ params }: Props) {
 
           {/* Checkout - Resumen de orden */}
           <div className="rounded-xl bg-white p-7 shadow-xl dark:bg-[#2f2d2d]">
-            <h2 className="mb-2 text-2xl">Dirección de facturación</h2>
+            <h2 className="mb-2 text-2xl">Billing Address</h2>
             <div className="mb-10">
               <p className="text-xl">
                 {address!.firstName} {address!.lastName}
@@ -76,16 +76,16 @@ export default async function OrdersByIdPage({ params }: Props) {
             {/* Divider */}
             <div className="mb-10 h-0.5 w-full rounded bg-gray-200 dark:bg-gray-700" />
 
-            <h2 className="mb-2 text-2xl">Resumen de orden</h2>
+            <h2 className="mb-2 text-2xl">Order Summary</h2>
 
             <div className="grid grid-cols-2">
-              <span>No. Productos</span>
-              <span className="text-right">{order?.itemsInOrder === 1 ? '1 artículo' : `${order?.itemsInOrder} artículos`}</span>
+              <span>No. Products</span>
+              <span className="text-right">{order?.itemsInOrder === 1 ? '1 item' : `${order?.itemsInOrder} items`}</span>
 
               <span>Subtotal</span>
               <span className="text-right">{currencyFormat(order!.subTotal)}</span>
 
-              <span>Impuestos (15%)</span>
+              <span>Taxes (15%)</span>
               <span className="text-right">{currencyFormat(order!.tax)}</span>
 
               <span className="mt-5 text-2xl">Total:</span>

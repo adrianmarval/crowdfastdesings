@@ -70,7 +70,7 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-5">
       <div className="mb-2 flex flex-col">
-        <span>Nombres</span>
+        <span>First Name</span>
         <input
           type="text"
           className="rounded-md border bg-gray-200 p-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
@@ -79,7 +79,7 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
       </div>
 
       <div className="mb-2 flex flex-col">
-        <span>Apellidos</span>
+        <span>Last Name</span>
         <input
           type="text"
           className="rounded-md border bg-gray-200 p-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
@@ -88,7 +88,7 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
       </div>
 
       <div className="mb-2 flex flex-col">
-        <span>Dirección</span>
+        <span>Address</span>
         <input
           type="text"
           className="rounded-md border bg-gray-200 p-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
@@ -97,7 +97,7 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
       </div>
 
       <div className="mb-2 flex flex-col">
-        <span>Dirección 2 (opcional)</span>
+        <span>Address 2 (optional)</span>
         <input
           type="text"
           className="rounded-md border bg-gray-200 p-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
@@ -106,7 +106,7 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
       </div>
 
       <div className="mb-2 flex flex-col">
-        <span>Código postal</span>
+        <span>Postal Code</span>
         <input
           type="text"
           className="rounded-md border bg-gray-200 p-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
@@ -115,7 +115,7 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
       </div>
 
       <div className="mb-2 flex flex-col">
-        <span>Ciudad</span>
+        <span>City</span>
         <input
           type="text"
           className="rounded-md border bg-gray-200 p-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
@@ -124,12 +124,12 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
       </div>
 
       <div className="mb-2 flex flex-col">
-        <span>País</span>
+        <span>Country</span>
         <select
           className="rounded-md border bg-gray-200 p-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
           {...register('country', { required: true })}
         >
-          <option value="">[ Seleccione ]</option>
+          <option value="">[ Select ]</option>
           {countries.map((country) => (
             <option key={country.id} value={country.id}>
               {country.name}
@@ -139,7 +139,7 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
       </div>
 
       <div className="mb-2 flex flex-col">
-        <span>Teléfono</span>
+        <span>Phone</span>
         <input
           type="text"
           className="rounded-md border bg-gray-200 p-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
@@ -174,7 +174,7 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
             </div>
           </label>
 
-          <span>¿Recordar dirección?</span>
+          <span>Remember address?</span>
         </div>
 
         <Button
@@ -188,7 +188,7 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
             'btn-disabled': !isValid,
           })}
         >
-          Siguiente
+          Next
         </Button>
       </div>
     </form>

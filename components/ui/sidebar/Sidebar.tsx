@@ -62,7 +62,7 @@ export const Sidebar = () => {
           <IoSearchOutline size={20} className="absolute top-2 left-2 dark:text-gray-100" />
           <input
             type="text"
-            placeholder="Buscar"
+            placeholder="Search"
             className="w-full rounded border-b-2 border-gray-200 bg-gray-50 py-1 pr-10 pl-10 text-xl focus:border-blue-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
           />
         </div>
@@ -77,7 +77,7 @@ export const Sidebar = () => {
               className="mt-10 flex items-center rounded p-2 transition-all hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700"
             >
               <IoPersonOutline size={30} />
-              <span className="ml-3 text-xl">Perfil</span>
+              <span className="ml-3 text-xl">Profile</span>
             </Link>
 
             <Link
@@ -86,7 +86,7 @@ export const Sidebar = () => {
               className="mt-10 flex items-center rounded p-2 transition-all hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700"
             >
               <IoTicketOutline size={30} />
-              <span className="ml-3 text-xl">Ordenes</span>
+              <span className="ml-3 text-xl">Orders</span>
             </Link>
           </>
         )}
@@ -97,7 +97,7 @@ export const Sidebar = () => {
             onClick={handleLogOut}
           >
             <IoLogOutOutline size={30} />
-            <span className="ml-3 text-xl">Salir</span>
+            <span className="ml-3 text-xl">Log out</span>
           </button>
         )}
 

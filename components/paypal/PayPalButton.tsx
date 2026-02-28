@@ -37,7 +37,7 @@ export const PayPalButton = ({ orderId, amount }: Props) => {
       intent: 'CAPTURE',
       purchase_units: [
         {
-          description: 'Orden #' + orderId,
+          description: 'Order #' + orderId,
 
           invoice_id: orderId,
           amount: {
@@ -50,7 +50,7 @@ export const PayPalButton = ({ orderId, amount }: Props) => {
 
     const { ok } = await setTransactionId(orderId, transactionId);
     if (!ok) {
-      throw new Error('No se pudo actualizar la orden');
+      throw new Error('Could not update the order');
     }
 
     return transactionId;
