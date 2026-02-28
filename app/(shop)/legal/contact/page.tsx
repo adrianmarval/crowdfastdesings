@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { titleFont } from '@/config/fonts';
+
+export const metadata: Metadata = {
+  title: 'Contact Us',
+  description: 'Get in touch with Crowdfast Designs. Find our company details, support hours, and contact information.',
+};
 
 export default function ContactPage() {
   return (

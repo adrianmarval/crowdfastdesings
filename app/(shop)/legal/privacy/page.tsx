@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { titleFont } from '@/config/fonts';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description: 'Understand how Crowdfast Designs collects, uses, and protects your personal information and data.',
+};
 
 export default function PrivacyPage() {
   return (

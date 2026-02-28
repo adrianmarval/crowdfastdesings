@@ -1,4 +1,10 @@
 import { SignupForm } from '@/components/auth/signup-form';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Create Account',
+  description: 'Sign up to Crowdfast Designs and start downloading the best frontend templates for your projects.',
+};
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 

@@ -259,7 +259,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ user: initialUser }) =
                     {user.role || 'User'}
                   </span>
                 </div>
-                <p className="mt-1 text-slate-500 dark:text-slate-400">
+                <p className="mt-1 text-slate-600 dark:text-slate-400">
                   Member since{' '}
                   {user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Unknown'}
                 </p>
@@ -453,7 +453,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ user: initialUser }) =
             </div>
           </div>
           <div className="border-t border-slate-100 bg-slate-50 px-8 py-6 dark:border-slate-800 dark:bg-slate-800/50">
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-slate-600 dark:text-slate-400">
               To update your personal information, use the "Edit Profile" button above. Some settings may require administrative approval.
             </p>
           </div>

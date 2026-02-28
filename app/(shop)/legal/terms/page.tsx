@@ -1,4 +1,11 @@
+import type { Metadata } from 'next';
 import { titleFont } from '@/config/fonts';
+
+export const metadata: Metadata = {
+  title: 'Terms of Service',
+  description:
+    'Read the terms of service for Crowdfast Designs, outlining the rules and guidelines for using our digital products and services.',
+};
 
 export default function TermsPage() {
   return (

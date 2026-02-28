@@ -1,4 +1,11 @@
+import type { Metadata } from 'next';
 import { Title } from '@/components/ui';
+
+export const metadata: Metadata = {
+  title: 'Checkout Address',
+  description: 'Enter your billing address securely.',
+  robots: { index: false, follow: false },
+};
 import { AddressForm } from './ui/AddressForm';
 
 import { getCountries, getUserAddress } from '@/actions';

@@ -20,13 +20,40 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
   // fetch data
   const product = await getProductBySlug(slug);
 
+  if (!product) {
+    return {
+      title: 'Product not found',
+      description: 'The product you are looking for is not available at Crowdfast Designs.',
+    };
+  }
+
+  const title = `${product.title} | Crowdfast Designs`;
+  const description = product.description?.substring(0, 160) || 'Download this amazing resource at Crowdfast Designs.';
+  // Ensure the image URL format is absolute or relative based on Next.js OG guidelines. Assuming `/products/[image]` is handled correctly via metadataBase.
+  const imageUrl = product.images?.[0] ? `/products/${product.images[0]}` : '/default-og-image.png';
+
   return {
-    title: product?.title ?? 'Product not found',
-    description: product?.description ?? '',
+    title: product.title,
+    description: description,
     openGraph: {
-      title: product?.title ?? 'Product not found',
-      description: product?.description ?? '',
-      images: [`/products/${product?.images[1]}`],
+      title: title,
+      description: description,
+      url: `/product/${product.slug}`,
+      images: [
+        {
+          url: imageUrl,
+          width: 800,
+          height: 600,
+          alt: product.title,
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: description,
+      images: [imageUrl],
     },
   };
 }
@@ -75,17 +102,17 @@ export default async function ProductBySlugPage({ params }: Props) {
                       </span>
                       <StockLabel slug={product.slug} />
                     </div>
-                    <h2 className={`mb-2 text-4xl font-bold ${titleFont.className}`}>{product.title}</h2>
+                    <h1 className={`mb-2 text-4xl font-bold ${titleFont.className}`}>{product.title}</h1>
                     <div className="flex items-center gap-2">
                       <div className="flex text-orange-400">
                         {[...Array(5)].map((_, i) => (
                           <Star key={i} size={14} fill="currentColor" />
                         ))}
                       </div>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">(124 Customer Reviews)</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400">(124 Customer Reviews)</span>
                     </div>
                   </div>
-                  <button className="rounded-2xl bg-gray-100 p-3 text-gray-500 transition-colors hover:bg-gray-200 dark:bg-[#1a1f37] dark:text-gray-400 dark:hover:bg-white/5">
+                  <button className="rounded-2xl bg-gray-100 p-3 text-gray-600 transition-colors hover:bg-gray-200 dark:bg-[#1a1f37] dark:text-gray-400 dark:hover:bg-white/5">
                     <Share2 size={20} />
                   </button>
                 </div>
@@ -95,7 +122,7 @@ export default async function ProductBySlugPage({ params }: Props) {
                 </div>
 
                 <div className="mb-10">
-                  <h3 className="mb-4 text-[10px] font-bold tracking-widest text-gray-500 uppercase dark:text-gray-400">Description</h3>
+                  <h3 className="mb-4 text-[10px] font-bold tracking-widest text-gray-600 uppercase dark:text-gray-400">Description</h3>
                   <p className="text-sm leading-relaxed font-light text-gray-600 dark:text-gray-300">{product.description}</p>
                 </div>
               </div>

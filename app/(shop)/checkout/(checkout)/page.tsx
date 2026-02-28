@@ -1,4 +1,11 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Checkout Order',
+  description: 'Verify your order before proceeding to payment.',
+  robots: { index: false, follow: false },
+};
 
 import { Title } from '@/components/ui/';
 import { ProductsInCart } from './ui/ProductsInCart';

@@ -1,5 +1,12 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { IoCartOutline } from 'react-icons/io5';
+
+export const metadata: Metadata = {
+  title: 'Empty Cart',
+  description: 'Your shopping cart is currently empty.',
+  robots: { index: false, follow: false },
+};
 
 export default function EmptyPage() {
   return (

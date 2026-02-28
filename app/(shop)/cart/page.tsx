@@ -4,6 +4,12 @@ import { ProductsInCart } from './ui/ProductsInCart';
 import { OrderSummary } from './ui/OrderSummary';
 import { Button } from '@/components/ui/button';
 import { Title } from '@/components/ui';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Your Cart',
+  description: 'Review and complete your purchase at Crowdfast Designs. The best frontend templates at your fingertips.',
+};
 
 export default function CartPage() {
   return (

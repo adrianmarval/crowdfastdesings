@@ -8,6 +8,40 @@ import { getPaginatedProductsWithImages } from '@/actions';
 import { Pagination } from '@/components/ui/pagination/Pagination';
 import { Title } from '@/components/ui/title/Title';
 import { ProductGrid } from '@/components/products';
+import { Metadata } from 'next';
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+  const { id } = params;
+  const labels: Record<string, string> = {
+    dashboards: 'Dashboards',
+    ecommerce: 'E-Commerce',
+    'landing-pages': 'Landing Pages',
+    'ui-kits': 'UI Kits',
+    saas: 'SaaS',
+    portfolio: 'Portfolios',
+  };
+  const categoryTitle = labels[id] ?? id;
+
+  const title = `Category: ${categoryTitle} | Crowdfast Designs`;
+  const description = `Explore our collection of templates and designs for ${categoryTitle}. Download the best frontend resources at Crowdfast Designs.`;
+
+  return {
+    title: `Category: ${categoryTitle}`,
+    description: description,
+    openGraph: {
+      title: title,
+      description: description,
+      url: `/category/${id}`,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary',
+      title: title,
+      description: description,
+    },
+  };
+}
 
 interface Props {
   params: Promise<{ id: string }>;

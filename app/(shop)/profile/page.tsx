@@ -2,6 +2,12 @@ import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { ProfileView } from './ui/ProfileView';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'My Profile',
+  description: 'Manage your profile and preferences at Crowdfast Designs.',
+};
 
 export default async function ProfilePage() {
   const session = await auth.api.getSession({ headers: await headers() });

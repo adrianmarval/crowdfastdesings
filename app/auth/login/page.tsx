@@ -1,4 +1,10 @@
 import { LoginForm } from '@/components/auth/login-form';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Log In',
+  description: 'Log in to your Crowdfast Designs account to access your purchases and template downloads.',
+};
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 

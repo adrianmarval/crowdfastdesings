@@ -1,4 +1,11 @@
+import type { Metadata } from 'next';
 import { titleFont } from '@/config/fonts';
+
+export const metadata: Metadata = {
+  title: 'Refund Policy',
+  description:
+    'Learn about our refund and cancellation policy for digital goods at Crowdfast Designs. Review eligibility criteria and the refund process.',
+};
 
 export default function RefundsPage() {
   return (
