@@ -25,6 +25,7 @@ export const getOrderById = async (id: string) => {
 
             product: {
               select: {
+                id: true,
                 title: true,
                 slug: true,
 
@@ -49,9 +50,26 @@ export const getOrderById = async (id: string) => {
       }
     }
 
+    let hasPurchasedItems = false;
+    if (!order.isPaid && session.user) {
+      const alreadyPurchased = !!(await prisma.orderItem.findFirst({
+        where: {
+          productId: {
+            in: order.OrderItem.map((item: any) => item.product.id),
+          },
+          order: {
+            userId: order.userId,
+            isPaid: true,
+          },
+        },
+      }));
+      hasPurchasedItems = alreadyPurchased;
+    }
+
     return {
       ok: true,
       order: order,
+      hasPurchasedItems,
     };
   } catch (error) {
     console.log(error);

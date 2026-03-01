@@ -5,7 +5,7 @@ import { Star, Share2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { titleFont } from '@/config/fonts';
 import { StockLabel } from '@/components/product';
-import { getProductBySlug } from '@/actions';
+import { getHasPurchasedProduct, getProductBySlug } from '@/actions';
 import { AddToCart } from './ui/AddToCart';
 import Markdown from 'react-markdown';
 
@@ -69,12 +69,14 @@ export default async function ProductBySlugPage({ params }: Props) {
     notFound();
   }
 
+  const hasPurchased = await getHasPurchasedProduct(product.id);
+
   return (
     <div className="mt-5 mb-20 w-full font-sans">
       <div className="w-full">
         {/* Product Section */}
         <div className="text-gray-900 dark:text-white">
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-16">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-12 lg:gap-8">
             {/* Image Gallery */}
             <div className="col-span-1 space-y-6 lg:col-span-7">
               <div className={`${titleFont.className} overflow-hidden rounded-[24px] bg-gray-50/50 p-2 dark:bg-white/5`}>
@@ -82,14 +84,14 @@ export default async function ProductBySlugPage({ params }: Props) {
                 <ProductMobileSlideshow
                   title={product.title}
                   images={product.images}
-                  className="block h-full w-full overflow-hidden rounded-[16px] object-cover md:hidden"
+                  className="block  overflow-hidden rounded-[16px] object-cover md:hidden"
                 />
 
                 {/* Desktop Slideshow */}
                 <ProductSlideshow
                   title={product.title}
                   images={product.images}
-                  className="hidden h-full w-full overflow-hidden rounded-[16px] object-cover md:block"
+                  className="hidden  overflow-hidden rounded-[16px] object-cover md:block"
                 />
               </div>
             </div>
@@ -123,7 +125,7 @@ export default async function ProductBySlugPage({ params }: Props) {
                 <div className="mb-8 flex items-center justify-between">
                   <span className="text-3xl font-bold">${product.price_usd}</span>
                   <div className="flex-1 px-8">
-                    <AddToCart product={product} />
+                    <AddToCart product={product} hasPurchased={hasPurchased} />
                   </div>
                 </div>
 

@@ -34,6 +34,26 @@ export const placeOrder = async (productIds: ProductToOrder[], address: Address)
   // Calcular los montos // Encabezado
   const itemsInOrder = productIds.length;
 
+  // Verificar si alguno de los productos ya fue comprado en ordenes pagadas
+  const alreadyPurchased = await prisma.orderItem.findFirst({
+    where: {
+      productId: {
+        in: productIds.map((p) => p.productId),
+      },
+      order: {
+        userId: userId,
+        isPaid: true,
+      },
+    },
+  });
+
+  if (alreadyPurchased) {
+    return {
+      ok: false,
+      message: 'Uno o más productos ya han sido comprados anteriormente',
+    };
+  }
+
   // Los totales de tax, subtotal, y total
   const { subTotal, tax, total } = productIds.reduce(
     (totals, item) => {

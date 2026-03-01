@@ -21,10 +21,6 @@ export const ProductMobileSlideshow = ({ images, title, className }: Props) => {
   return (
     <div className={className}>
       <Swiper
-        style={{
-          width: '100%',
-          height: 'auto',
-        }}
         pagination
         autoplay={{
           delay: 2500,

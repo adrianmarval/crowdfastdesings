@@ -15,7 +15,7 @@ export default async function OrdersByIdPage({ params }: Props) {
 
   // Todo: Llamar el server action
 
-  const { ok, order } = await getOrderById(id);
+  const { ok, order, hasPurchasedItems } = await getOrderById(id);
 
   if (!ok) {
     redirect('/');
@@ -93,7 +93,15 @@ export default async function OrdersByIdPage({ params }: Props) {
             </div>
 
             <div className="mt-5 mb-2 w-full">
-              {order?.isPaid ? <OrderStatus isPaid={order?.isPaid ?? false} /> : <PayPalButton amount={order!.total} orderId={order!.id} />}
+              {order?.isPaid ? (
+                <OrderStatus isPaid={order?.isPaid ?? false} />
+              ) : hasPurchasedItems ? (
+                <div className="rounded-lg bg-red-50 p-4 text-center text-sm font-semibold text-red-500">
+                  Some products in this order have already been purchased. You cannot pay for this order.
+                </div>
+              ) : (
+                <PayPalButton amount={order!.total} orderId={order!.id} />
+              )}
             </div>
           </div>
         </div>
