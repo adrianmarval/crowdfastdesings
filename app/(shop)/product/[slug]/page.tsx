@@ -1,14 +1,13 @@
 export const revalidate = 604800; //7 días
 import { Metadata, ResolvingMetadata } from 'next';
-
 import { notFound } from 'next/navigation';
 import { Star, Share2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
-
 import { titleFont } from '@/config/fonts';
 import { StockLabel } from '@/components/product';
 import { getProductBySlug } from '@/actions';
 import { AddToCart } from './ui/AddToCart';
+import Markdown from 'react-markdown';
 
 const ProductMobileSlideshow = dynamic(() => import('@/components/product').then((mod) => mod.ProductMobileSlideshow));
 const ProductSlideshow = dynamic(() => import('@/components/product').then((mod) => mod.ProductSlideshow));
@@ -121,19 +120,35 @@ export default async function ProductBySlugPage({ params }: Props) {
                   </button>
                 </div>
 
-                <div className="mb-8">
+                <div className="mb-8 flex items-center justify-between">
                   <span className="text-3xl font-bold">${product.price_usd}</span>
+                  <div className="flex-1 px-8">
+                    <AddToCart product={product} />
+                  </div>
                 </div>
 
                 <div className="mb-10">
                   <h3 className="mb-4 text-[10px] font-bold tracking-widest text-gray-600 uppercase dark:text-gray-400">Description</h3>
-                  <p className="text-sm leading-relaxed font-light text-gray-600 dark:text-gray-300">{product.description}</p>
+                  <div className="markdown-container max-h-[480px] overflow-y-auto">
+                    <Markdown
+                      components={{
+                        h1: ({ children }) => <h1 className="mt-6 mb-4 text-2xl font-bold text-gray-900 dark:text-gray-100">{children}</h1>,
+                        h2: ({ children }) => <h2 className="mt-5 mb-3 text-xl font-bold text-gray-900 dark:text-gray-100">{children}</h2>,
+                        h3: ({ children }) => <h3 className="mt-4 mb-2 text-lg font-bold text-gray-900 dark:text-gray-100">{children}</h3>,
+                        p: ({ children }) => (
+                          <p className="mb-4 text-sm leading-relaxed font-light text-gray-600 dark:text-gray-300">{children}</p>
+                        ),
+                        ul: ({ children }) => (
+                          <ul className="mb-4 list-disc pl-5 text-sm font-light text-gray-600 dark:text-gray-300">{children}</ul>
+                        ),
+                        li: ({ children }) => <li className="mb-1 leading-relaxed">{children}</li>,
+                        hr: () => <hr className="my-6 border-gray-200 dark:border-gray-800" />,
+                      }}
+                    >
+                      {product.description || ''}
+                    </Markdown>
+                  </div>
                 </div>
-              </div>
-
-              <div className="mt-auto pt-6">
-                {/* Add to Cart Component */}
-                <AddToCart product={product} />
               </div>
             </div>
           </div>

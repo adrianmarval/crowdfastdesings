@@ -12,7 +12,7 @@ export const Footer = () => {
             <span className={`${titleFont.className} font-bold text-gray-900 antialiased dark:text-white`}>Crowdfast </span>
             <span className="text-gray-900 dark:text-white">| Designs </span>
           </Link>
-          <span>© {new Date().getFullYear()} Crowdfast Desings. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Crowdfast Designs. All rights reserved.</span>
           <div className="mt-1 flex items-center gap-1 text-xs text-green-600 dark:text-green-500">
             <ShieldCheck size={14} /> Secure Checkout
           </div>
@@ -20,6 +20,9 @@ export const Footer = () => {
 
         {/* Legal Links */}
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 font-medium">
+          <Link href="/legal/about" className="transition-colors hover:text-gray-900 dark:hover:text-white">
+            About Us
+          </Link>
           <Link href="/legal/terms" className="transition-colors hover:text-gray-900 dark:hover:text-white">
             Terms & Conditions
           </Link>
