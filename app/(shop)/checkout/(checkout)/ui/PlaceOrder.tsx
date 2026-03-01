@@ -9,6 +9,7 @@ import { useAddressStore, useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
 import { useShallow } from 'zustand/react/shallow';
 import { Button } from '@/components/ui/button';
+import { FaCcVisa, FaCcMastercard, FaCcAmex } from 'react-icons/fa';
 
 export const PlaceOrder = () => {
   const router = useRouter();
@@ -103,22 +104,10 @@ export const PlaceOrder = () => {
         </p>
 
         {/* Accepted Cards - Stripe Compliance */}
-        <div className="mb-4 flex items-center justify-center gap-2">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png"
-            alt="Visa"
-            className="h-4 object-contain opacity-70 grayscale"
-          />
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png"
-            alt="Mastercard"
-            className="h-5 object-contain opacity-70 grayscale"
-          />
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/200px-American_Express_logo_%282018%29.svg.png"
-            alt="American Express"
-            className="h-5 object-contain opacity-70 grayscale"
-          />
+        <div className="mb-4 flex items-center justify-center gap-2 text-gray-400">
+          <FaCcVisa className="h-6 w-auto" />
+          <FaCcMastercard className="h-6 w-auto" />
+          <FaCcAmex className="h-6 w-auto" />
         </div>
 
         <p className="text-red-500">{errorMessage}</p>

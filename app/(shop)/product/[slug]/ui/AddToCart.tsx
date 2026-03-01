@@ -8,10 +8,9 @@ import { Button } from '@/components/ui/button';
 
 interface Props {
   product: Product;
-  hasPurchased?: boolean;
 }
 
-export const AddToCart = ({ product, hasPurchased }: Props) => {
+export const AddToCart = ({ product }: Props) => {
   const [loaded, setLoaded] = useState(false);
   const cart = useCartStore((state) => state.cart);
   const addProductToCart = useCartStore((state) => state.addProductTocart);
@@ -30,19 +29,6 @@ export const AddToCart = ({ product, hasPurchased }: Props) => {
   };
 
   const isInCart = cart.some((item) => item.id === product.id);
-
-  if (hasPurchased) {
-    return (
-      <div className="flex items-center justify-end">
-        <Button
-          disabled
-          className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-gray-400 py-6 font-bold text-white shadow-none transition-all duration-300 disabled:opacity-80"
-        >
-          YOU ALREADY OWN THIS PRODUCT
-        </Button>
-      </div>
-    );
-  }
 
   return (
     <div className="flex items-center justify-end">

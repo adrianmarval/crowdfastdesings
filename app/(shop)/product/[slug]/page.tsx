@@ -5,7 +5,7 @@ import { Star, Share2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { titleFont } from '@/config/fonts';
 import { StockLabel } from '@/components/product';
-import { getHasPurchasedProduct, getProductBySlug } from '@/actions';
+import { getProductBySlug } from '@/actions';
 import { AddToCart } from './ui/AddToCart';
 import Markdown from 'react-markdown';
 
@@ -69,8 +69,6 @@ export default async function ProductBySlugPage({ params }: Props) {
     notFound();
   }
 
-  const hasPurchased = await getHasPurchasedProduct(product.id);
-
   return (
     <div className="mt-5 mb-20 w-full font-sans">
       <div className="w-full">
@@ -84,14 +82,14 @@ export default async function ProductBySlugPage({ params }: Props) {
                 <ProductMobileSlideshow
                   title={product.title}
                   images={product.images}
-                  className="block  overflow-hidden rounded-[16px] object-cover md:hidden"
+                  className="block overflow-hidden rounded-[16px] object-cover md:hidden"
                 />
 
                 {/* Desktop Slideshow */}
                 <ProductSlideshow
                   title={product.title}
                   images={product.images}
-                  className="hidden  overflow-hidden rounded-[16px] object-cover md:block"
+                  className="hidden overflow-hidden rounded-[16px] object-cover md:block"
                 />
               </div>
             </div>
@@ -125,7 +123,7 @@ export default async function ProductBySlugPage({ params }: Props) {
                 <div className="mb-8 flex items-center justify-between">
                   <span className="text-3xl font-bold">${product.price_usd}</span>
                   <div className="flex-1 px-8">
-                    <AddToCart product={product} hasPurchased={hasPurchased} />
+                    <AddToCart product={product} />
                   </div>
                 </div>
 
