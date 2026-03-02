@@ -57,9 +57,9 @@ A continuación, se documenta la sintaxis y cómo establecer cada una de las var
 #### Base de Datos (PostgreSQL)
 
 - **`DB_USER`** (Ej. `postgres`): El usuario administrador. El archivo `docker-compose` lo lee para iniciar sesión.
-- **`DB_NAME`** (Ej. `crowdfastdesings`): El nombre de tu base de datos principal.
+- **`DB_NAME`** (Ej. `crowdfastdesigns`): El nombre de tu base de datos principal.
 - **`DB_PASSWORD`** (Ej. `123456`): Contraseña asignada al usuario.
-- **`DATABASE_URL`** (Ej. `postgresql://postgres:123456@localhost:5432/crowdfastdesings?schema=public`): La URL de conexión requerida por Prisma ORM. Debes editarla para que concuerde con tu `DB_USER`, `DB_PASSWORD` y `DB_NAME`.
+- **`DATABASE_URL`** (Ej. `postgresql://postgres:123456@localhost:5432/crowdfastdesigns?schema=public`): La URL de conexión requerida por Prisma ORM. Debes editarla para que concuerde con tu `DB_USER`, `DB_PASSWORD` y `DB_NAME`.
 
 #### Autenticación (Better Auth)
 

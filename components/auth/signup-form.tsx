@@ -23,7 +23,7 @@ interface SignupFormProps extends React.ComponentProps<'div'> {
   returnTo?: string;
 }
 
-export function SignupForm({ className, returnTo = '/', ...props }: SignupFormProps) {
+export function SignupForm({ className, returnTo = '/shop', ...props }: SignupFormProps) {
   const [fullname, setFullname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

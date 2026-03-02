@@ -25,7 +25,7 @@ export default function ContactPage() {
           <ul className="space-y-4">
             <li className="flex items-start">
               <span className="w-48 font-semibold">Legal Company Name:</span>
-              <span className="text-gray-700 dark:text-gray-300">Crowdfast Desings</span>
+              <span className="text-gray-700 dark:text-gray-300">Crowdfast Designs</span>
             </li>
             <li className="flex items-start">
               <span className="w-48 font-semibold">Registration Country:</span>

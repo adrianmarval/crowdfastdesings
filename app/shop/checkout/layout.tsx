@@ -11,5 +11,5 @@ export default async function CheckoutLayout({ children }: { children: React.Rea
     redirect('/auth/login?returnTo=/checkout/address');
   }
 
-  return <>{children}</>;
+  return <div suppressHydrationWarning>{children}</div>;
 }

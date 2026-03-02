@@ -10,7 +10,7 @@ type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 export default async function Page(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams;
-  const returnTo = typeof searchParams.returnTo === 'string' ? searchParams.returnTo : '/';
+  const returnTo = typeof searchParams.returnTo === 'string' ? searchParams.returnTo : '/shop';
 
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">

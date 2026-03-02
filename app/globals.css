@@ -116,3 +116,15 @@
 .btn-danger {
   @apply bg-red-500 px-4 py-2 text-white transition-all hover:bg-red-700;
 }
+
+.card-bg {
+  @apply overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.05)] transition-all hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:border-white/5 dark:bg-[#18181F] dark:shadow-none dark:hover:border-white/10;
+}
+
+.section-bg {
+  @apply bg-slate-100 dark:bg-[#121217];
+}
+
+.nav-item {
+  @apply text-[13px] font-medium tracking-tight text-slate-500 transition-colors hover:text-slate-900 dark:text-gray-400 dark:hover:text-white;
+}

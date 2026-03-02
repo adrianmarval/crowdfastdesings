@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import { Star, Share2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { titleFont } from '@/config/fonts';
-import { StockLabel } from '@/components/product';
 import { getProductBySlug } from '@/actions';
 import { AddToCart } from './ui/AddToCart';
 import Markdown from 'react-markdown';
@@ -103,7 +102,6 @@ export default async function ProductBySlugPage({ params }: Props) {
                       <span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-[10px] font-bold tracking-wider text-blue-600 uppercase dark:bg-blue-600/20 dark:text-blue-400">
                         New Arrival
                       </span>
-                      <StockLabel slug={product.slug} />
                     </div>
                     <h1 className={`mb-2 text-4xl font-bold ${titleFont.className}`}>{product.title}</h1>
                     <div className="flex items-center gap-2">

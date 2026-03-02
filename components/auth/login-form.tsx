@@ -22,7 +22,7 @@ interface LoginFormProps extends React.ComponentProps<'div'> {
   returnTo?: string;
 }
 
-export function LoginForm({ className, returnTo = '/', ...props }: LoginFormProps) {
+export function LoginForm({ className, returnTo = '/shop', ...props }: LoginFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

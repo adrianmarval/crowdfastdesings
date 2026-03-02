@@ -2,12 +2,13 @@
 import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
-import { IoSearchOutline, IoCartOutline } from 'react-icons/io5';
+import { IoCartOutline } from 'react-icons/io5';
 
 import { titleFont } from '@/config/fonts';
 import { useCartStore, useUiStore } from '@/store/';
 import { ThemeToggle } from '../theme-toggle';
-import Image from 'next/image';
+import { GlobalSearch } from '../global-search/GlobalSearch';
+import { Button } from '../button';
 
 export const TopMenu = () => {
   const openSideMenu = useUiStore((state) => state.openSideMenu);
@@ -21,7 +22,7 @@ export const TopMenu = () => {
   }, []);
 
   return (
-    <nav className="flex h-16 w-full items-center justify-between px-2 sm:px-5">
+    <nav className="flex h-16 w-full items-center justify-between bg-white px-2 sm:px-20 dark:bg-[#0C0A09]">
       <div className="flex items-center">
         <Link href="/" className="flex items-center gap-1 transition-all hover:opacity-80 active:scale-95">
           {/* <Image
@@ -43,22 +44,20 @@ export const TopMenu = () => {
 
       {/* Center Menu */}
       <div className="hidden sm:block">
-        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800" href="/category/dashboards">
+        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800" href="/shop/category/dashboards">
           Dashboards
         </Link>
-        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800" href="/category/ecommerce">
+        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800" href="/shop/category/ecommerce">
           E-Commerce
         </Link>
-        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800" href="/category/ui-kits">
+        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800" href="/shop/category/ui-kits">
           UI Kits
         </Link>
       </div>
 
       {/* Search, Cart, Menu */}
       <div className="flex items-center">
-        <Link href="/search" className="mx-2">
-          <IoSearchOutline className="h-5 w-5" />
-        </Link>
+        <GlobalSearch />
 
         <Link href={totalItemsInCart === 0 && isClient ? '/empty' : '/cart'} className="mx-2">
           <div className="relative">
@@ -72,9 +71,13 @@ export const TopMenu = () => {
         </Link>
         <ThemeToggle />
 
-        <button onClick={openSideMenu} className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800">
+        <Button
+          variant="ghost"
+          onClick={openSideMenu}
+          className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800"
+        >
           Menu
-        </button>
+        </Button>
       </div>
     </nav>
   );

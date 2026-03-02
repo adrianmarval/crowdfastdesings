@@ -4,10 +4,9 @@ import { useEffect, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 export function ThemeToggle() {
-  const { setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -16,33 +15,54 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="ghost" size="icon" disabled>
-        <Sun className="h-[1.2rem] w-[1.2rem]" />
-        <span className="sr-only">Toggle theme</span>
-      </Button>
+      <div className="relative inline-flex items-center rounded-full border border-black/10 bg-black/5 p-1 opacity-50 dark:border-white/10 dark:bg-white/5">
+        <div className="h-7 w-7" />
+        <div className="h-7 w-7" />
+      </div>
     );
   }
 
+  const currentTheme = resolvedTheme || theme;
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-          <span className="sr-only">Toggle theme</span>
+    <>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        .theme-pill-animated {
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+      `,
+        }}
+      />
+      <div className="relative inline-flex items-center gap-1 rounded-full border border-black/10 bg-black/5 p-1 dark:border-white/10 dark:bg-white/5">
+        <div
+          className="theme-pill-animated absolute left-1 h-7 w-7 rounded-full bg-white shadow-sm dark:bg-white/20"
+          style={{
+            transform: currentTheme === 'dark' ? 'translateX(calc(100% + 4px))' : 'translateX(0)',
+          }}
+        />
+        <Button
+          variant="ghost"
+          onClick={() => setTheme('light')}
+          className={`relative z-10 flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
+            currentTheme === 'light' ? 'text-black dark:text-white' : 'text-gray-500 hover:text-black dark:hover:text-white'
+          }`}
+          aria-label="Light mode"
+        >
+          <Sun size={14} />
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme('light')} className="cursor-pointer">
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')} className="cursor-pointer">
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')} className="cursor-pointer">
-          System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        <Button
+          variant="ghost"
+          onClick={() => setTheme('dark')}
+          className={`relative z-10 flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
+            currentTheme === 'dark' ? 'text-black dark:text-white' : 'text-gray-500 hover:text-black dark:hover:text-white'
+          }`}
+          aria-label="Dark mode"
+        >
+          <Moon size={14} />
+        </Button>
+      </div>
+    </>
   );
 }
