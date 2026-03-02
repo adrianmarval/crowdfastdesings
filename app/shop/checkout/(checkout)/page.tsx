@@ -21,7 +21,7 @@ export default function CheckoutPage() {
           {/* Cart */}
           <div className="mt-5 flex flex-col">
             <span className="text-xl">Adjust elements</span>
-            <Link href="/cart" className="mb-5 underline">
+            <Link href="/shop/cart" className="mb-5 underline">
               Edit cart
             </Link>
 

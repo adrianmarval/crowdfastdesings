@@ -8,7 +8,7 @@ import { titleFont } from '@/config/fonts';
 import { useCartStore, useUiStore } from '@/store/';
 import { ThemeToggle } from '../theme-toggle';
 import { GlobalSearch } from '../global-search/GlobalSearch';
-import { Button } from '../button';
+import { Button } from '@/components/ui/button';
 
 export const TopMenu = () => {
   const openSideMenu = useUiStore((state) => state.openSideMenu);
@@ -24,7 +24,7 @@ export const TopMenu = () => {
   return (
     <nav className="flex h-16 w-full items-center justify-between bg-white px-2 sm:px-20 dark:bg-[#0C0A09]">
       <div className="flex items-center">
-        <Link href="/" className="flex items-center gap-1 transition-all hover:opacity-80 active:scale-95">
+        <Link href="/shop" className="flex items-center gap-1 transition-all hover:opacity-80 active:scale-95">
           {/* <Image
             src="/logo.svg"
             alt="Crowdfast Logo"
@@ -59,7 +59,7 @@ export const TopMenu = () => {
       <div className="flex items-center">
         <GlobalSearch />
 
-        <Link href={totalItemsInCart === 0 && isClient ? '/empty' : '/cart'} className="mx-2">
+        <Link href={totalItemsInCart === 0 && isClient ? '/shop/empty' : '/shop/cart'} className="mx-2">
           <div className="relative">
             {isClient && totalItemsInCart > 0 ? (
               <span className="fade-in absolute -top-2 -right-2 rounded-full bg-blue-700 px-1 text-xs font-bold text-white">

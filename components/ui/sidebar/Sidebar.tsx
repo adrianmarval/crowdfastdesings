@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 import {
@@ -25,6 +26,12 @@ export const Sidebar = () => {
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user.role === 'admin';
   const router = useRouter();
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   async function handleLogOut() {
     await authClient.signOut({
@@ -69,10 +76,10 @@ export const Sidebar = () => {
 
         {/* Menú */}
 
-        {isAuthenticated ? (
+        {isLoaded && isAuthenticated && (
           <>
             <Link
-              href="/profile"
+              href="/shop/profile"
               onClick={() => closeMenu()}
               className="mt-10 flex items-center rounded p-2 transition-all hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700"
             >
@@ -81,7 +88,7 @@ export const Sidebar = () => {
             </Link>
 
             <Link
-              href="/orders"
+              href="/shop/orders"
               onClick={() => closeMenu()}
               className="mt-10 flex items-center rounded p-2 transition-all hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700"
             >
@@ -89,9 +96,9 @@ export const Sidebar = () => {
               <span className="ml-3 text-xl">Orders</span>
             </Link>
           </>
-        ) : null}
+        )}
 
-        {isAuthenticated ? (
+        {isLoaded && isAuthenticated && (
           <button
             className="mt-10 flex w-full items-center rounded p-2 transition-all hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700"
             onClick={handleLogOut}
@@ -99,9 +106,9 @@ export const Sidebar = () => {
             <IoLogOutOutline size={30} />
             <span className="ml-3 text-xl">Log out</span>
           </button>
-        ) : null}
+        )}
 
-        {!isAuthenticated ? (
+        {isLoaded && !isAuthenticated && (
           <Link
             href="/auth/login"
             className="mt-10 flex items-center rounded p-2 transition-all hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700"
@@ -110,9 +117,9 @@ export const Sidebar = () => {
             <IoLogInOutline size={30} />
             <span className="ml-3 text-xl">Login</span>
           </Link>
-        ) : null}
+        )}
 
-        {isAdmin ? (
+        {isLoaded && isAdmin && (
           <>
             {/* Line Separator */}
             <div className="my-10 h-px w-full bg-gray-200 dark:bg-gray-700" />
@@ -144,7 +151,7 @@ export const Sidebar = () => {
               <span className="ml-3 text-xl">Users</span>
             </Link>
           </>
-        ) : null}
+        )}
       </nav>
     </div>
   );

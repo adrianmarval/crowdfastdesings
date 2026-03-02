@@ -110,8 +110,8 @@ const Hero = () => {
 const TemplateCard: React.FC<{ title: string; price: number; image: string; slug: string }> = ({ title, price, image, slug }) => {
   const displayImage = image.startsWith('http') || image.startsWith('/') ? image : `/products/${image}`;
   return (
-    <Link href={`/product/${slug}`} className="card-bg group flex h-full cursor-pointer flex-col">
-      <div className="aspect-[4/3] overflow-hidden bg-white dark:bg-[#0F0F13]">
+    <Link href={`/shop/product/${slug}`} className="card-bg group flex h-full cursor-pointer flex-col">
+      <div className="aspect-4/3 overflow-hidden bg-white dark:bg-[#0F0F13]">
         <img
           src={displayImage}
           alt={title}
@@ -119,7 +119,7 @@ const TemplateCard: React.FC<{ title: string; price: number; image: string; slug
           referrerPolicy="no-referrer"
         />
       </div>
-      <div className="flex flex-grow flex-col justify-between p-5">
+      <div className="flex grow flex-col justify-between p-5">
         <h3 className="mb-3 line-clamp-2 text-[14px] leading-snug font-medium text-slate-500 transition-colors group-hover:text-slate-800 dark:text-gray-300 dark:group-hover:text-white">
           {title}
         </h3>

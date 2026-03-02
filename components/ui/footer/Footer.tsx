@@ -8,7 +8,7 @@ export const Footer = () => {
       <div className="container mx-auto flex flex-col items-center justify-between gap-6 px-4 md:flex-row">
         {/* Brand */}
         <div className="flex flex-col items-center gap-2 md:items-start">
-          <Link href="/" className="flex items-center gap-1">
+          <Link href="/shop" className="flex items-center gap-1">
             <span className={`${titleFont.className} font-bold text-gray-900 antialiased dark:text-white`}>Crowdfast </span>
             <span className="text-gray-900 dark:text-white">| Designs </span>
           </Link>

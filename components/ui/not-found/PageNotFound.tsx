@@ -4,14 +4,14 @@ import { titleFont } from '@/config/fonts';
 
 export const PageNotFound = () => {
   return (
-    <div className="flex h-[800px] w-full flex-col-reverse items-center justify-center align-middle md:flex-row">
+    <div className="flex min-h-[90vh] w-full flex-col-reverse items-center justify-center align-middle md:flex-row">
       <div className="mx-5 px-5 text-center">
         <h2 className={`${titleFont.className} text-9xl antialiased`}>404</h2>
         <p className="text-xl font-semibold">Whoops! We are very sorry.</p>
         <p className="font-light">
           <span>You can return to </span>
-          <Link href="/" className="font-normal transition-all hover:underline">
-            home
+          <Link href="/shop" className="font-normal transition-all hover:underline text-xl text-green-600 underline">
+            Home
           </Link>
         </p>
       </div>

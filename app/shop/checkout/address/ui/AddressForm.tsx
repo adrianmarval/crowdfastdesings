@@ -64,7 +64,7 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
       await deleteUserAddress(session!.user.id);
     }
 
-    router.push('/checkout');
+    router.push('/shop/checkout');
   };
 
   return (
@@ -179,9 +179,7 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
 
         <Button
           disabled={!isValid}
-          // href="/checkout"
           type="submit"
-          // className="btn-primary flex w-full sm:w-1/2 justify-center "
           className={clsx({
             'flex h-10 w-full justify-center sm:w-1/2': true,
             'btn-primary': isValid,
