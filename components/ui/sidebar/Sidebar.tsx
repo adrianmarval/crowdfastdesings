@@ -125,7 +125,7 @@ export const Sidebar = () => {
             <div className="my-10 h-px w-full bg-gray-200 dark:bg-gray-700" />
 
             <Link
-              href="/admin/products"
+              href="/shop/admin/products"
               onClick={() => closeMenu()}
               className="mt-10 flex items-center rounded p-2 transition-all hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700"
             >
@@ -134,7 +134,7 @@ export const Sidebar = () => {
             </Link>
 
             <Link
-              href="/admin/orders"
+              href="/shop/admin/orders"
               onClick={() => closeMenu()}
               className="mt-10 flex items-center rounded p-2 transition-all hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700"
             >
@@ -143,7 +143,7 @@ export const Sidebar = () => {
             </Link>
 
             <Link
-              href="/admin/users"
+              href="/shop/admin/users"
               onClick={() => closeMenu()}
               className="mt-10 flex items-center rounded p-2 transition-all hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700"
             >

@@ -1,0 +1,78 @@
+export const revalidate = 0;
+
+// https://tailwindcomponents.com/component/hoverable-table
+import { getPaginatedProductsWithImages } from '@/actions';
+import { Pagination, Title } from '@/components/ui';
+import { ProductImage } from '@/components/product/product-image/ProductImage';
+import { currencyFormat } from '@/utils';
+import Link from 'next/link';
+
+interface Props {
+  searchParams: Promise<{ page?: string }>;
+}
+
+export default async function OrdersPage({ searchParams }: Props) {
+  const { page = '1' } = await searchParams;
+
+  const { products, currentPage, totalPages } = await getPaginatedProductsWithImages({ page: Number(page) });
+
+  return (
+    <>
+      <Title title="Mantenimiento de productos" />
+
+      <div className="mb-5 flex justify-end">
+        <Link href="/shop/admin/product/new" className="btn-primary">
+          Nuevo producto
+        </Link>
+      </div>
+
+      <div className="mb-10">
+        <table className="min-w-full">
+          <thead className="border-b bg-gray-200 dark:border-zinc-800 dark:bg-zinc-800">
+            <tr>
+              <th scope="col" className="px-6 py-4 text-left text-sm font-medium text-gray-900 dark:text-zinc-100">
+                Imagen
+              </th>
+              <th scope="col" className="px-6 py-4 text-left text-sm font-medium text-gray-900 dark:text-zinc-100">
+                Titulo
+              </th>
+              <th scope="col" className="px-6 py-4 text-left text-sm font-medium text-gray-900 dark:text-zinc-100">
+                Precio
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr
+                key={product.id}
+                className="border-b bg-white transition duration-300 ease-in-out hover:bg-gray-100 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800"
+              >
+                <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-zinc-200">
+                  <Link href={`/shop/product/${product.slug}`}>
+                    <ProductImage
+                      src={product.ProductImage[0]?.url}
+                      width={80}
+                      height={80}
+                      alt={product.title}
+                      className="h-20 w-20 rounded object-cover"
+                    />
+                  </Link>
+                </td>
+                <td className="px-6 py-4 text-sm font-light whitespace-nowrap text-gray-900 dark:text-zinc-200">
+                  <Link href={`/shop/admin/product/${product.slug}`} className="hover:underline">
+                    {product.title}
+                  </Link>
+                </td>
+                <td className="px-6 py-4 text-sm font-bold whitespace-nowrap text-gray-900 dark:text-zinc-200">
+                  {currencyFormat(product.price_usd)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <Pagination totalPages={totalPages} />
+      </div>
+    </>
+  );
+}

@@ -20,19 +20,19 @@ export const Footer = () => {
 
         {/* Legal Links */}
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 font-medium">
-          <Link href="/legal/about" className="transition-colors hover:text-gray-900 dark:hover:text-white">
+          <Link href="shop/legal/about" className="transition-colors hover:text-gray-900 dark:hover:text-white">
             About Us
           </Link>
-          <Link href="/legal/terms" className="transition-colors hover:text-gray-900 dark:hover:text-white">
+          <Link href="shop/legal/terms" className="transition-colors hover:text-gray-900 dark:hover:text-white">
             Terms & Conditions
           </Link>
-          <Link href="/legal/privacy" className="transition-colors hover:text-gray-900 dark:hover:text-white">
+          <Link href="shop/legal/privacy" className="transition-colors hover:text-gray-900 dark:hover:text-white">
             Privacy Policy
           </Link>
-          <Link href="/legal/refunds" className="transition-colors hover:text-gray-900 dark:hover:text-white">
+          <Link href="shop/legal/refunds" className="transition-colors hover:text-gray-900 dark:hover:text-white">
             Refund Policy
           </Link>
-          <Link href="/legal/contact" className="transition-colors hover:text-gray-900 dark:hover:text-white">
+          <Link href="shop/legal/contact" className="transition-colors hover:text-gray-900 dark:hover:text-white">
             Contact Us
           </Link>
         </div>
