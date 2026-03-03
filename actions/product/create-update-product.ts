@@ -17,7 +17,7 @@ const productSchema = z.object({
     .min(0)
     .transform((val) => Number(val.toFixed(2))),
   url_live_preview: z.string().optional().nullable(),
-  file_url: z.string().min(1, 'File URL es requerido'),
+  file_url: z.string().optional().nullable(),
   version: z.string().optional().nullable(),
   categoryId: z.string().uuid(),
   tags: z.string(),
@@ -51,7 +51,7 @@ export const createUpdateProduct = async (formData: FormData) => {
         description: rest.description || null,
         price_usd: rest.price_usd,
         url_live_preview: rest.url_live_preview || null,
-        file_url: rest.file_url,
+        file_url: rest.file_url || '',
         version: rest.version || null,
         categoryId: rest.categoryId,
         tags: {

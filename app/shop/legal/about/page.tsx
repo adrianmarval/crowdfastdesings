@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { titleFont } from '@/config/fonts';
 
 export const metadata: Metadata = {
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12">
+    <div>
       <h1 className={`${titleFont.className} mb-8 text-4xl font-bold`}>About Us</h1>
 
       <div className="prose prose-slate dark:prose-invert max-w-none space-y-8 text-gray-700 dark:text-gray-300">
@@ -71,20 +72,20 @@ export default function AboutPage() {
         <section className="border-t pt-10 text-center dark:border-gray-800">
           <h2 className="mb-4 text-2xl font-bold">Ready to Build Something Amazing?</h2>
           <p className="mb-6">Explore our collection and find the perfect foundation for your next big idea.</p>
-          <a
+          <Link
             href="/shop"
             className="inline-block rounded-2xl bg-blue-600 px-8 py-3 font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:bg-blue-700 active:scale-95"
           >
             Browse Products
-          </a>
+          </Link>
         </section>
 
         <section className="text-center text-sm text-gray-500">
           <p>
             Have questions or interested in a custom collaboration?{' '}
-            <a href="/legal/contact" className="text-blue-600 hover:underline">
+            <Link href="/legal/contact" className="text-blue-600 hover:underline">
               Get in touch
-            </a>
+            </Link>
           </p>
         </section>
       </div>

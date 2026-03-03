@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
-import { IoCartOutline } from 'react-icons/io5';
+import { IoCartOutline, IoHomeOutline } from 'react-icons/io5';
 
 import { titleFont } from '@/config/fonts';
 import { useCartStore, useUiStore } from '@/store/';
@@ -24,6 +24,13 @@ export const TopMenu = () => {
   return (
     <nav className="flex h-16 w-full items-center justify-between bg-white px-2 sm:px-20 dark:bg-[#0C0A09]">
       <div className="flex items-center">
+        <Link
+          href="/"
+          className="mr-2 flex items-center justify-center rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800"
+          aria-label="Home"
+        >
+          <IoHomeOutline className="h-5 w-5" />
+        </Link>
         <Link href="/shop" className="flex items-center gap-1 transition-all hover:opacity-80 active:scale-95">
           {/* <Image
             src="/logo.svg"

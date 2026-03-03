@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import clsx from 'clsx';
 
 import { placeOrder } from '@/actions';
@@ -92,13 +93,13 @@ export const PlaceOrder = () => {
           {/* Disclaimer */}
           <span className="text-xs text-gray-600 dark:text-gray-400">
             By clicking &quot;Place Order&quot;, you agree to our{' '}
-            <a href="/legal/terms" className="underline hover:text-gray-900 dark:hover:text-white" target="_blank">
+            <Link href="/legal/terms" className="underline hover:text-gray-900 dark:hover:text-white" target="_blank">
               terms and conditions
-            </a>{' '}
+            </Link>{' '}
             and{' '}
-            <a href="/legal/privacy" className="underline hover:text-gray-900 dark:hover:text-white" target="_blank">
+            <Link href="/legal/privacy" className="underline hover:text-gray-900 dark:hover:text-white" target="_blank">
               privacy policy
-            </a>
+            </Link>
             .
           </span>
         </p>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { titleFont } from '@/config/fonts';
 
 export const metadata: Metadata = {
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function RefundsPage() {
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12">
+    <div>
       <h1 className={`${titleFont.className} mb-8 text-4xl font-bold`}>Refund and Cancellation Policy</h1>
 
       <div className="prose prose-slate dark:prose-invert max-w-none space-y-6">
@@ -64,9 +65,9 @@ export default function RefundsPage() {
           </p>
           <p className="mt-2">
             Please email us at{' '}
-            <a href="mailto:contact@crowdfast.store" className="text-blue-600 hover:underline">
+            <Link href="mailto:contact@crowdfast.store" className="text-blue-600 hover:underline">
               contact@crowdfast.store
-            </a>{' '}
+            </Link>{' '}
             and include:
           </p>
           <ul className="mt-2 list-disc space-y-1 pl-6">

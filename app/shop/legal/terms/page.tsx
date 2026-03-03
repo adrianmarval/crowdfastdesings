@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { titleFont } from '@/config/fonts';
 
 export const metadata: Metadata = {
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12">
+    <div>
       <h1 className={`${titleFont.className} mb-8 text-4xl font-bold`}>Terms and Conditions</h1>
 
       <div className="prose prose-slate dark:prose-invert max-w-none space-y-6">
@@ -89,9 +90,9 @@ export default function TermsPage() {
           <h2 className="mt-8 mb-4 text-2xl font-semibold">Contact Us</h2>
           <p>
             If you have any questions about these Terms, please contact us at:{' '}
-            <a href="mailto:contact@crowdfast.store" className="text-blue-600 hover:underline">
+            <Link href="mailto:contact@crowdfast.store" className="text-blue-600 hover:underline">
               contact@crowdfast.store
-            </a>
+            </Link>
           </p>
         </section>
       </div>

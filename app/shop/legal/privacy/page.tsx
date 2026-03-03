@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { titleFont } from '@/config/fonts';
 
 export const metadata: Metadata = {
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12">
+    <div>
       <h1 className={`${titleFont.className} mb-8 text-4xl font-bold`}>Privacy Policy</h1>
 
       <div className="prose prose-slate dark:prose-invert max-w-none space-y-6">
@@ -62,9 +63,9 @@ export default function PrivacyPage() {
           <p className="mt-2">
             <em>Specifically regarding Stripe:</em> If you choose to pay via Stripe, your payment data is passed directly to Stripe. You can
             review Stripe's Privacy Policy at{' '}
-            <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+            <Link href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
               stripe.com/privacy
-            </a>
+            </Link>
             .
           </p>
         </section>
@@ -89,9 +90,9 @@ export default function PrivacyPage() {
           <h2 className="mt-8 mb-4 text-2xl font-semibold">6. Contact Us</h2>
           <p>
             If you have any questions or concerns about this Privacy Policy, please contact us at:{' '}
-            <a href="mailto:contact@crowdfast.store" className="text-blue-600 hover:underline">
+            <Link href="mailto:contact@crowdfast.store" className="text-blue-600 hover:underline">
               contact@crowdfast.store
-            </a>
+            </Link>
           </p>
         </section>
       </div>

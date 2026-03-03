@@ -63,7 +63,7 @@ function ResetPasswordForm() {
       } else {
         setSuccess(true);
         setTimeout(() => {
-          router.push('/login');
+          router.push('/auth/login');
         }, 3000);
       }
     } catch (err: any) {

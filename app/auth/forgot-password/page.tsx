@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import { useState } from 'react';
 import { authClient } from '@/lib/auth-client';
 import { Button } from '@/components/ui/button';
@@ -23,7 +25,7 @@ export default function ForgotPasswordPage() {
     try {
       const { data, error } = await authClient.forgetPassword({
         email,
-        redirectTo: `${window.location.origin}/reset-password`,
+        redirectTo: `${window.location.origin}/auth/reset-password`,
       });
 
       if (error) {
@@ -74,9 +76,9 @@ export default function ForgotPasswordPage() {
                 </Button>
                 <div className="text-center text-sm">
                   Remember your password?{' '}
-                  <a href="/login" className="underline">
+                  <Link href="/auth/login" className="underline">
                     Login
-                  </a>
+                  </Link>
                 </div>
               </div>
             </form>
