@@ -14,10 +14,7 @@ export const deleteProduct = async (id: string, slug: string) => {
     // Delete ZIP file from Appwrite if it exists
     if (product?.file_url) {
       try {
-        await storage.deleteFile({
-          bucketId: process.env.APPWRITE_ZIPS_BUCKET || '',
-          fileId: product.file_url,
-        });
+        await storage.deleteFile(process.env.APPWRITE_ZIPS_BUCKET || '', product.file_url);
       } catch (e) {
         console.warn('No se pudo eliminar el ZIP de Appwrite:', e);
       }
@@ -41,10 +38,7 @@ export const deleteProduct = async (id: string, slug: string) => {
 
         if (fileId) {
           try {
-            await storage.deleteFile({
-              bucketId: process.env.NEXT_PUBLIC_APPWRITE_IMAGES_BUCKET || '',
-              fileId: fileId,
-            });
+            await storage.deleteFile(process.env.NEXT_PUBLIC_APPWRITE_IMAGES_BUCKET || '', fileId);
           } catch (appwriteErr) {
             console.warn('Advertencia: No se pudo eliminar el archivo de Appwrite (puede que ya no exista):', appwriteErr);
           }

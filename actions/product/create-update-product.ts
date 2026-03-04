@@ -46,10 +46,7 @@ export const createUpdateProduct = async (formData: FormData) => {
       // Si ya existía un archivo anterior, lo eliminamos de Appwrite
       if (rest.file_url) {
         try {
-          await storage.deleteFile({
-            bucketId: process.env.APPWRITE_ZIPS_BUCKET || '',
-            fileId: rest.file_url,
-          });
+          await storage.deleteFile(process.env.APPWRITE_ZIPS_BUCKET || '', rest.file_url);
         } catch (e) {
           console.log('Could not delete previous zip:', e);
         }
@@ -161,11 +158,7 @@ const uploadImages = async (images: File[]) => {
         const buffer = await image.arrayBuffer();
         const inputFile = InputFile.fromBuffer(Buffer.from(buffer), image.name);
 
-        const uploadedFile = await storage.createFile({
-          bucketId: process.env.NEXT_PUBLIC_APPWRITE_IMAGES_BUCKET || '',
-          fileId: ID.unique(),
-          file: inputFile,
-        });
+        const uploadedFile = await storage.createFile(process.env.NEXT_PUBLIC_APPWRITE_IMAGES_BUCKET || '', ID.unique(), inputFile);
 
         // Retornamos la URL de vista oficial de Appwrite
         return `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${process.env.NEXT_PUBLIC_APPWRITE_IMAGES_BUCKET}/files/${uploadedFile.$id}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID}`;
@@ -187,11 +180,7 @@ const uploadZip = async (file: File): Promise<string | null> => {
     const buffer = await file.arrayBuffer();
     const inputFile = InputFile.fromBuffer(Buffer.from(buffer), file.name);
 
-    const uploadedFile = await storage.createFile({
-      bucketId: process.env.APPWRITE_ZIPS_BUCKET || '',
-      fileId: ID.unique(),
-      file: inputFile,
-    });
+    const uploadedFile = await storage.createFile(process.env.APPWRITE_ZIPS_BUCKET || '', ID.unique(), inputFile);
 
     // Retornamos el file ID (no la URL) para usarlo en descargas seguras
     return uploadedFile.$id;

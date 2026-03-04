@@ -58,10 +58,10 @@ export const getDownloadFile = async (orderId: string, productId: string) => {
     const bucketId = process.env.APPWRITE_ZIPS_BUCKET || '';
 
     // Get file metadata (name, mimeType, size)
-    const fileMeta = await storage.getFile({ bucketId, fileId });
+    const fileMeta = await storage.getFile(bucketId, fileId);
 
     // Download file from Appwrite (returns ArrayBuffer)
-    const fileBuffer = await storage.getFileDownload({ bucketId, fileId });
+    const fileBuffer = await storage.getFileDownload(bucketId, fileId);
 
     // Convert ArrayBuffer to base64 string for client transfer
     const base64 = Buffer.from(fileBuffer).toString('base64');

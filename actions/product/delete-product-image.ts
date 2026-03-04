@@ -29,10 +29,7 @@ export const deleteProductImage = async (imageId: number, imageUrl: string) => {
   // Si hallamos un fileId de Appwrite, intentamos borrarlo de Storage
   if (fileId) {
     try {
-      await storage.deleteFile({
-        bucketId: process.env.NEXT_PUBLIC_APPWRITE_IMAGES_BUCKET || '',
-        fileId: fileId,
-      });
+      await storage.deleteFile(process.env.NEXT_PUBLIC_APPWRITE_IMAGES_BUCKET || '', fileId);
     } catch (appwriteErr) {
       console.warn('Advertencia: No se pudo eliminar el archivo de Appwrite (puede que ya no exista):', appwriteErr);
     }
