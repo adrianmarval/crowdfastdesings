@@ -39,7 +39,30 @@ export const createUpdateProduct = async (formData: FormData) => {
   try {
     let finalProduct;
 
-    // Primer paso: validamos uploads y las procesamos fuera de la transaccion
+    // Primer paso: procesamos el archivo ZIP si se envió uno nuevo
+    let zipFileId = rest.file_url || '';
+    const zipFile = formData.get('zipFile') as File | null;
+    if (zipFile && zipFile.size > 0) {
+      // Si ya existía un archivo anterior, lo eliminamos de Appwrite
+      if (rest.file_url) {
+        try {
+          await storage.deleteFile({
+            bucketId: process.env.APPWRITE_ZIPS_BUCKET || '',
+            fileId: rest.file_url,
+          });
+        } catch (e) {
+          console.log('Could not delete previous zip:', e);
+        }
+      }
+
+      const uploadedFileId = await uploadZip(zipFile);
+      if (!uploadedFileId) {
+        throw new Error('No se pudo cargar el archivo ZIP');
+      }
+      zipFileId = uploadedFileId;
+    }
+
+    // Segundo paso: validamos uploads de imágenes y las procesamos fuera de la transaccion
     let validImages: string[] = [];
     if (formData.getAll('images')) {
       const fileArray = formData.getAll('images') as File[];
@@ -68,7 +91,7 @@ export const createUpdateProduct = async (formData: FormData) => {
         description: rest.description || null,
         price_usd: rest.price_usd,
         url_live_preview: rest.url_live_preview || null,
-        file_url: rest.file_url || '',
+        file_url: zipFileId,
         version: rest.version || null,
         categoryId: rest.categoryId,
         tags: {
@@ -156,6 +179,24 @@ const uploadImages = async (images: File[]) => {
     return uploadedImages;
   } catch (error) {
     console.log(error);
+    return null;
+  }
+};
+const uploadZip = async (file: File): Promise<string | null> => {
+  try {
+    const buffer = await file.arrayBuffer();
+    const inputFile = InputFile.fromBuffer(Buffer.from(buffer), file.name);
+
+    const uploadedFile = await storage.createFile({
+      bucketId: process.env.APPWRITE_ZIPS_BUCKET || '',
+      fileId: ID.unique(),
+      file: inputFile,
+    });
+
+    // Retornamos el file ID (no la URL) para usarlo en descargas seguras
+    return uploadedFile.$id;
+  } catch (error) {
+    console.log('Error uploading zip:', error);
     return null;
   }
 };

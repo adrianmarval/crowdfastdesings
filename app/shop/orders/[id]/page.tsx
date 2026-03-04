@@ -5,6 +5,7 @@ import { currencyFormat } from '@/utils';
 import { OrderStatus } from '@/components/orders/OrderStatus';
 import { Title } from '@/components/ui';
 import { PayPalButton } from '@/components/paypal/PayPalButton';
+import { DownloadButton } from '@/components/orders/DownloadButton';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -13,8 +14,6 @@ interface Props {
 export default async function OrdersByIdPage({ params }: Props) {
   const { id } = await params;
 
-  // Todo: Llamar el server action
-
   const { ok, order } = await getOrderById(id);
 
   if (!ok) {
@@ -22,6 +21,7 @@ export default async function OrdersByIdPage({ params }: Props) {
   }
 
   const address = order!.OrderAddress;
+  const isPaid = order?.isPaid ?? false;
 
   return (
     <div className="mb-72 flex items-center justify-center px-10 sm:px-0">
@@ -31,11 +31,11 @@ export default async function OrdersByIdPage({ params }: Props) {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
           {/* Carrito */}
           <div className="mt-5 flex flex-col">
-            <OrderStatus isPaid={order?.isPaid ?? false} />
+            <OrderStatus isPaid={isPaid} />
 
             {/* Items */}
             {order!.OrderItem.map((item) => (
-              <div key={item.product.slug} className="mb-5 flex">
+              <div key={item.product.slug} className="mb-5 flex items-start">
                 <Image
                   src={`/products/${item.product.ProductImage[0].url}`}
                   width={100}
@@ -48,10 +48,13 @@ export default async function OrdersByIdPage({ params }: Props) {
                   className="mr-5 rounded"
                 />
 
-                <div>
+                <div className="flex-1">
                   <p>{item.product.title}</p>
                   <p>${item.price} USD</p>
                   <p className="font-bold">Subtotal: {currencyFormat(item.price)} USD</p>
+
+                  {/* Download button - only visible when order is paid */}
+                  {isPaid && <DownloadButton orderId={order!.id} productId={item.product.id} />}
                 </div>
               </div>
             ))}
@@ -93,7 +96,7 @@ export default async function OrdersByIdPage({ params }: Props) {
             </div>
 
             <div className="mt-5 mb-2 w-full">
-              {order?.isPaid ? <OrderStatus isPaid={order?.isPaid ?? false} /> : <PayPalButton amount={order!.total} orderId={order!.id} />}
+              {isPaid ? <OrderStatus isPaid={isPaid} /> : <PayPalButton amount={order!.total} orderId={order!.id} />}
             </div>
           </div>
         </div>

@@ -25,8 +25,10 @@ export const getOrderById = async (id: string) => {
 
             product: {
               select: {
+                id: true,
                 title: true,
                 slug: true,
+                file_url: true,
 
                 ProductImage: {
                   select: {

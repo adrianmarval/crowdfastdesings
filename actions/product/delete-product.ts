@@ -8,8 +8,20 @@ export const deleteProduct = async (id: string, slug: string) => {
   try {
     const product = await prisma.product.findUnique({
       where: { id },
-      select: { images: true },
+      select: { images: true, file_url: true },
     });
+
+    // Delete ZIP file from Appwrite if it exists
+    if (product?.file_url) {
+      try {
+        await storage.deleteFile({
+          bucketId: process.env.APPWRITE_ZIPS_BUCKET || '',
+          fileId: product.file_url,
+        });
+      } catch (e) {
+        console.warn('No se pudo eliminar el ZIP de Appwrite:', e);
+      }
+    }
 
     if (product?.images) {
       const deletePromises = product.images.map(async (imageUrl) => {

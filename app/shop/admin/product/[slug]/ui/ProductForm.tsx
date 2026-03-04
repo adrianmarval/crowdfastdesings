@@ -23,7 +23,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { IoCloudUploadOutline, IoTrashOutline, IoWarningOutline } from 'react-icons/io5';
+import { IoCloudUploadOutline, IoTrashOutline, IoWarningOutline, IoDocumentOutline } from 'react-icons/io5';
 import Image from 'next/image';
 import { deleteProduct } from '@/actions';
 
@@ -41,6 +41,7 @@ interface FormInputs {
   categoryId: string;
   file_url?: string;
   images?: File[];
+  zipFile?: File[];
 }
 
 export const ProductForm = ({ product, categories }: Props) => {
@@ -62,6 +63,7 @@ export const ProductForm = ({ product, categories }: Props) => {
   });
 
   const [selectedPreviews, setSelectedPreviews] = useState<{ file: File; url: string }[]>([]);
+  const [zipFileName, setZipFileName] = useState<string | null>(product.file_url ? 'Current file uploaded' : null);
   const previewsRef = useRef(selectedPreviews);
 
   // Unificamos las imágenes que vienen de base de datos (Appwrite) y las nuevas previsualizadas localmente.
@@ -152,7 +154,7 @@ export const ProductForm = ({ product, categories }: Props) => {
   const onSubmit = async (data: FormInputs) => {
     const formData = new FormData();
 
-    const { images, ...productToSave } = data;
+    const { images, zipFile, ...productToSave } = data;
 
     if (product.id) {
       formData.append('id', product.id ?? '');
@@ -165,6 +167,10 @@ export const ProductForm = ({ product, categories }: Props) => {
     formData.append('tags', productToSave.tags);
     formData.append('categoryId', productToSave.categoryId);
     formData.append('file_url', product.file_url ?? '');
+
+    if (zipFile && zipFile.length > 0) {
+      formData.append('zipFile', zipFile[0]);
+    }
 
     if (images) {
       for (let i = 0; i < images.length; i++) {
@@ -237,6 +243,42 @@ export const ProductForm = ({ product, categories }: Props) => {
                 </option>
               ))}
             </select>
+          </div>
+        </div>
+
+        {/* Archivo ZIP descargable */}
+        <div className="mt-2 flex flex-col gap-4">
+          <h2 className="text-xl font-bold dark:text-zinc-100">Archivo Descargable</h2>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="zipFile" className="flex items-center gap-2">
+              <IoDocumentOutline size={18} />
+              Archivo ZIP del producto
+            </Label>
+
+            {zipFileName && (
+              <div className="flex items-center gap-2 rounded-md bg-green-50 px-3 py-2 text-sm text-green-700 dark:bg-green-900/20 dark:text-green-400">
+                <IoDocumentOutline size={16} />
+                <span>{zipFileName}</span>
+              </div>
+            )}
+
+            <Input
+              id="zipFile"
+              type="file"
+              accept=".zip"
+              {...register('zipFile')}
+              onChange={(e) => {
+                register('zipFile').onChange(e);
+                const file = e.target.files?.[0];
+                if (file) {
+                  setZipFileName(file.name);
+                }
+              }}
+              className="cursor-pointer"
+            />
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Sube el archivo .zip que los clientes descargarán después de la compra.
+            </p>
           </div>
         </div>
 
