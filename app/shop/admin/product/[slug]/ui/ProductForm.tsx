@@ -1,6 +1,8 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
+import { useCallback, useState, useEffect, useRef } from 'react';
+import { useDropzone } from 'react-dropzone';
 import { Category, Product, ProductImage as ProductWithImage } from '@/interfaces';
 import { createUpdateProduct, deleteProductImage } from '@/actions';
 import { useRouter } from 'next/navigation';
@@ -11,6 +13,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { IoCloudUploadOutline, IoTrashOutline } from 'react-icons/io5';
+import Image from 'next/image';
 
 interface Props {
   product: Partial<Product> & { ProductImage?: ProductWithImage[] };
@@ -25,7 +28,7 @@ interface FormInputs {
   tags: string;
   categoryId: string;
   file_url?: string;
-  images?: FileList;
+  images?: File[];
 }
 
 export const ProductForm = ({ product, categories }: Props) => {
@@ -43,6 +46,8 @@ export const ProductForm = ({ product, categories }: Props) => {
   const {
     handleSubmit,
     register,
+    getValues,
+    setValue,
     formState: { isValid },
   } = useForm<FormInputs>({
     defaultValues: {
@@ -50,6 +55,63 @@ export const ProductForm = ({ product, categories }: Props) => {
       tags: product.tags?.join(', '),
       description: product.description ?? '',
       images: undefined,
+    },
+  });
+
+  const [selectedPreviews, setSelectedPreviews] = useState<{ file: File; url: string }[]>([]);
+  const previewsRef = useRef(selectedPreviews);
+
+  // Create chunks for the selected previews carousel
+  const previewChunks = [];
+  for (let i = 0; i < selectedPreviews.length; i += chunkSize) {
+    previewChunks.push(selectedPreviews.slice(i, i + chunkSize));
+  }
+
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const newPreviews = acceptedFiles.map((file) => ({
+        file,
+        url: URL.createObjectURL(file),
+      }));
+
+      setSelectedPreviews((prev) => [...prev, ...newPreviews]);
+
+      const currentImages = getValues('images') || [];
+      setValue('images', [...currentImages, ...acceptedFiles], { shouldValidate: true });
+    },
+    [getValues, setValue],
+  );
+
+  const removeFile = (index: number) => {
+    setSelectedPreviews((prev) => {
+      const newPrev = [...prev];
+      URL.revokeObjectURL(newPrev[index].url);
+      newPrev.splice(index, 1);
+      return newPrev;
+    });
+
+    const currentImages = getValues('images') || [];
+    const newImages = [...currentImages];
+    newImages.splice(index, 1);
+    setValue('images', newImages.length > 0 ? newImages : undefined, { shouldValidate: true });
+  };
+
+  useEffect(() => {
+    previewsRef.current = selectedPreviews;
+  }, [selectedPreviews]);
+
+  useEffect(() => {
+    return () => {
+      previewsRef.current.forEach((p) => URL.revokeObjectURL(p.url));
+    };
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      'image/png': ['.png'],
+      'image/jpeg': ['.jpg', '.jpeg'],
+      'image/avif': ['.avif'],
     },
   });
 
@@ -152,17 +214,75 @@ export const ProductForm = ({ product, categories }: Props) => {
         <div className="mt-2 flex flex-col gap-6">
           <h2 className="text-xl font-bold dark:text-zinc-100">Imágenes del Producto</h2>
           <div className="flex flex-col gap-2">
-            <Label htmlFor="images" className="mb-1 flex items-center gap-2">
+            <Label className="mb-1 flex items-center gap-2">
               <IoCloudUploadOutline size={18} /> Subir nuevas imágenes
             </Label>
-            <Input
-              id="images"
-              type="file"
-              {...register('images')}
-              multiple
-              accept="image/png, image/jpeg, image/avif"
-              className="cursor-pointer file:cursor-pointer"
-            />
+
+            <div
+              {...getRootProps()}
+              className={`flex cursor-pointer flex-col items-center justify-center rounded-md border-dashed p-20 transition-colors ${
+                isDragActive
+                  ? 'border-2 border-blue-500 bg-blue-500/10'
+                  : 'bg-muted/20 hover:bg-muted/50 border-2 border-gray-400 dark:border-zinc-700'
+              }`}
+            >
+              <input {...getInputProps()} />
+              <IoCloudUploadOutline size={48} className="mb-4 text-gray-400" />
+              {isDragActive ? (
+                <p className="text-sm font-medium text-blue-500">Suelta los archivos aquí...</p>
+              ) : (
+                <div className="text-center">
+                  <p className="text-sm font-medium dark:text-gray-300">Arrastra y suelta imágenes aquí, o haz clic para seleccionar</p>
+                  <p className="mt-2 text-xs text-gray-500">Formatos soportados: PNG, JPG, JPEG, AVIF</p>
+                </div>
+              )}
+            </div>
+
+            {previewChunks.length > 0 && (
+              <div className="mt-4">
+                <p className="text-muted-foreground mb-3 text-sm font-medium">Imágenes seleccionadas para subir:</p>
+                <Carousel className="w-full">
+                  <CarouselContent>
+                    {previewChunks.map((chunk, chunkIndex) => (
+                      <CarouselItem key={`preview-chunk-${chunkIndex}`}>
+                        <div className="grid grid-cols-2 sm:grid-cols-3">
+                          {chunk.map((preview, index) => {
+                            const globalIndex = chunkIndex * chunkSize + index;
+                            return (
+                              <div
+                                key={preview.url}
+                                className="group border-border bg-muted/20 relative overflow-hidden rounded-md border transition-all"
+                              >
+                                <Image alt="preview" src={preview.url} width={300} height={300} className="w-full object-cover" />
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
+                                  <Button
+                                    type="button"
+                                    variant="destructive"
+                                    size="icon"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      removeFile(globalIndex);
+                                    }}
+                                  >
+                                    <IoTrashOutline />
+                                  </Button>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  {previewChunks.length > 1 && (
+                    <div className="mt-4 flex justify-center gap-2">
+                      <CarouselPrevious size="lg" className="static translate-y-0" />
+                      <CarouselNext size="lg" className="static translate-y-0" />
+                    </div>
+                  )}
+                </Carousel>
+              </div>
+            )}
           </div>
 
           {imageChunks.length > 0 && (
@@ -204,11 +324,11 @@ export const ProductForm = ({ product, categories }: Props) => {
             </Carousel>
           )}
 
-          {imageChunks.length === 0 && (
+          {/* {imageChunks.length === 0 && (
             <div className="border-muted-foreground/30 bg-muted/20 flex h-32 items-center justify-center rounded-md border border-dashed">
               <span className="text-muted-foreground text-sm">Sin imágenes</span>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </form>
