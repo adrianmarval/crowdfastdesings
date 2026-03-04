@@ -30,6 +30,7 @@ import { deleteProduct } from '@/actions';
 interface Props {
   product: Partial<Product> & { ProductImage?: ProductWithImage[] };
   categories: Category[];
+  initialZipFileName?: string | null;
 }
 
 interface FormInputs {
@@ -44,7 +45,7 @@ interface FormInputs {
   zipFile?: File[];
 }
 
-export const ProductForm = ({ product, categories }: Props) => {
+export const ProductForm = ({ product, categories, initialZipFileName }: Props) => {
   const router = useRouter();
 
   const {
@@ -63,7 +64,7 @@ export const ProductForm = ({ product, categories }: Props) => {
   });
 
   const [selectedPreviews, setSelectedPreviews] = useState<{ file: File; url: string }[]>([]);
-  const [zipFileName, setZipFileName] = useState<string | null>(product.file_url ? 'Current file uploaded' : null);
+  const [zipFileName, setZipFileName] = useState<string | null>(initialZipFileName || (product.file_url ? 'Current file uploaded' : null));
   const previewsRef = useRef(selectedPreviews);
 
   // Unificamos las imágenes que vienen de base de datos (Appwrite) y las nuevas previsualizadas localmente.
