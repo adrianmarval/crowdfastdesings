@@ -1,9 +1,8 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { v2 as cloudinary } from 'cloudinary';
 import { revalidatePath } from 'next/cache';
-cloudinary.config(process.env.CLOUDINARY_URL ?? '');
+import { storage } from '@/lib/appwrite-server';
 
 export const deleteProductImage = async (imageId: number, imageUrl: string) => {
   if (!imageUrl.startsWith('http')) {
@@ -13,10 +12,36 @@ export const deleteProductImage = async (imageId: number, imageUrl: string) => {
     };
   }
 
-  const imageName = imageUrl.split('/').pop()?.split('.')[0] ?? '';
+  // Appwrite file URLs are typically formulated as:
+  // .../storage/buckets/{bucketId}/files/{fileId}/view...
+  let fileId = '';
+  try {
+    const urlObj = new URL(imageUrl);
+    const pathSegments = urlObj.pathname.split('/');
+    const filesIndex = pathSegments.indexOf('files');
+    if (filesIndex !== -1 && pathSegments.length > filesIndex + 1) {
+      fileId = pathSegments[filesIndex + 1];
+    }
+  } catch (err) {
+    console.error('Error parsing Appwrite image URL:', err);
+  }
+
+  // Si hallamos un fileId de Appwrite, intentamos borrarlo de Storage
+  if (fileId) {
+    try {
+      await storage.deleteFile({
+        bucketId: process.env.NEXT_PUBLIC_APPWRITE_IMAGES_BUCKET || '',
+        fileId: fileId,
+      });
+    } catch (appwriteErr) {
+      console.warn('Advertencia: No se pudo eliminar el archivo de Appwrite (puede que ya no exista):', appwriteErr);
+    }
+  } else {
+    // Si no tiene "files/" quizas sea de cloudinary. Lo loggeamos pero continuamos
+    console.warn(`No se detecto un fileId de Appwrite para la url: ${imageUrl}. Se eliminara solo de la base de datos.`);
+  }
 
   try {
-    await cloudinary.uploader.destroy(imageName);
     const deletedImage = await prisma.productImage.delete({
       where: {
         id: imageId,
@@ -47,11 +72,15 @@ export const deleteProductImage = async (imageId: number, imageUrl: string) => {
     revalidatePath(`/shop/admin/products`);
     revalidatePath(`/shop/admin/product/${deletedImage.product.slug}`);
     revalidatePath(`/shop/product/${deletedImage.product.slug}`);
+
+    return {
+      ok: true,
+    };
   } catch (error) {
     console.log(error);
     return {
       ok: false,
-      message: 'No se pudo eliminar la imagen',
+      message: 'No se pudo eliminar la imagen de la base de datos',
     };
   }
 };

@@ -2,10 +2,9 @@
 
 import prisma from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
-
 import { z } from 'zod';
-import { v2 as cloudinary } from 'cloudinary';
-cloudinary.config(process.env.CLOUDINARY_URL ?? '');
+import { storage, ID } from '@/lib/appwrite-server';
+import { InputFile } from 'node-appwrite/file';
 
 const productSchema = z.object({
   id: z.string().uuid().optional().nullable(),
@@ -38,6 +37,24 @@ export const createUpdateProduct = async (formData: FormData) => {
   const { id, ...rest } = product;
 
   try {
+    let finalProduct;
+
+    // Primer paso: validamos uploads y las procesamos fuera de la transaccion
+    let validImages: string[] = [];
+    if (formData.getAll('images')) {
+      const fileArray = formData.getAll('images') as File[];
+      const validFiles = fileArray.filter((f) => f.size > 0);
+
+      if (validFiles.length > 0) {
+        const uploadedUrls = await uploadImages(validFiles);
+        if (!uploadedUrls) {
+          throw new Error('No se pudo cargar las imágenes');
+        }
+
+        validImages = uploadedUrls.filter(Boolean) as string[];
+      }
+    }
+
     const prismaTx = await prisma.$transaction(async (tx) => {
       let productDb;
       const tagsArray = rest.tags
@@ -72,37 +89,23 @@ export const createUpdateProduct = async (formData: FormData) => {
         });
       }
 
-      // Proceso de carga y guardado de imagenes
-      if (formData.getAll('images')) {
-        const fileArray = formData.getAll('images') as File[];
-        const validFiles = fileArray.filter((f) => f.size > 0);
+      // Proceso de guardado de imagenes final obtenidas previamente
+      if (validImages.length > 0) {
+        await tx.productImage.createMany({
+          data: validImages.map((image) => ({
+            url: image,
+            productId: productDb.id,
+          })),
+        });
 
-        if (validFiles.length > 0) {
-          const images = await uploadImages(validFiles);
-          if (!images) {
-            throw new Error('No se pudo cargar las imágenes, rollingback');
-          }
-
-          const validImages = images.filter(Boolean) as string[];
-
-          if (validImages.length > 0) {
-            await tx.productImage.createMany({
-              data: validImages.map((image) => ({
-                url: image,
-                productId: productDb.id,
-              })),
-            });
-
-            await tx.product.update({
-              where: { id: productDb.id },
-              data: {
-                images: {
-                  push: validImages,
-                },
-              },
-            });
-          }
-        }
+        await tx.product.update({
+          where: { id: productDb.id },
+          data: {
+            images: {
+              set: [...(productDb.images || []), ...validImages],
+            },
+          },
+        });
       }
 
       return {
@@ -133,9 +136,16 @@ const uploadImages = async (images: File[]) => {
     const uploadPromises = images.map(async (image) => {
       try {
         const buffer = await image.arrayBuffer();
-        const base64Image = Buffer.from(buffer).toString('base64');
+        const inputFile = InputFile.fromBuffer(Buffer.from(buffer), image.name);
 
-        return cloudinary.uploader.upload(`data:image/png;base64,${base64Image}`).then((r) => r.secure_url);
+        const uploadedFile = await storage.createFile({
+          bucketId: process.env.NEXT_PUBLIC_APPWRITE_IMAGES_BUCKET || '',
+          fileId: ID.unique(),
+          file: inputFile,
+        });
+
+        // Retornamos la URL de vista oficial de Appwrite
+        return `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${process.env.NEXT_PUBLIC_APPWRITE_IMAGES_BUCKET}/files/${uploadedFile.$id}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID}`;
       } catch (error) {
         console.log(error);
         return null;
