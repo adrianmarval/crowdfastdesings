@@ -7,9 +7,8 @@ import { getOptimizedAppwriteUrl, isAppwriteUrl } from './appwrite-image-url';
  * 1. If the image starts with 'http' → it's an Appwrite (or external) URL.
  *    - If it's Appwrite, convert /view → /preview with WebP + optional resize.
  *    - Otherwise, use as-is.
- * 2. If the image starts with '/' → it's already an absolute path (e.g. /products/...), use as-is.
- * 3. Otherwise → it's a relative filename from seed/public, prepend '/products/'.
- * 4. If no image is provided → return the placeholder.
+ * 2. If the image starts with '/' → it's a local static asset (e.g. /imgs/...), use as-is.
+ * 3. Otherwise → return the placeholder (no more local /products/ images).
  */
 
 interface ResolveOptions {
@@ -41,5 +40,6 @@ export const resolveProductImageUrl = (src?: string | null, options: ResolveOpti
 
   if (src.startsWith('/')) return src;
 
-  return `/products/${src}`;
+  // Fallback: unknown format → placeholder
+  return PLACEHOLDER;
 };
