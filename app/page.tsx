@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Footer, Sidebar, TopMenu } from '@/components/ui';
 import { getPaginatedProductsWithImages } from '@/actions';
 import { Button } from '@/components/ui/button';
@@ -109,15 +110,17 @@ const Hero = () => {
 };
 
 const TemplateCard: React.FC<{ title: string; price: number; image: string; slug: string }> = ({ title, price, image, slug }) => {
-  const displayImage = resolveProductImageUrl(image);
+  const displayImage = resolveProductImageUrl(image, { width: 600, height: 450 });
   return (
     <Link href={`/shop/product/${slug}`} className="card-bg group flex h-full cursor-pointer flex-col">
-      <div className="aspect-4/3 overflow-hidden bg-white dark:bg-[#0F0F13]">
-        <img
+      <div className="relative aspect-4/3 overflow-hidden bg-white dark:bg-[#0F0F13]">
+        <Image
           src={displayImage}
           alt={title}
-          className="h-full w-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105 group-hover:opacity-100"
-          referrerPolicy="no-referrer"
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          className="object-cover opacity-90 transition-transform duration-500 group-hover:scale-105 group-hover:opacity-100"
+          quality={75}
         />
       </div>
       <div className="flex grow flex-col justify-between p-5">
