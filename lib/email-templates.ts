@@ -15,7 +15,7 @@ const BASE_HTML = (content: string) => `
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); max-width: 600px; width: 100%;">
                     <tr>
                         <td align="center" style="padding: 40px 0; background-color: #ffffff; border-bottom: 1px solid #eaeaea;">
-                            <img src="${APP_URL}/imgs/logo.png" alt="Crowdfast Designs Logo" width="120" style="display: block; max-width: 100%; height: auto;">
+                            <img src="${APP_URL}/imgs/logo.png" alt="Crowdfast Designs Logo" width="300" style="display: block; max-width: 100%; height: auto;">
                         </td>
                     </tr>
                     <tr>
