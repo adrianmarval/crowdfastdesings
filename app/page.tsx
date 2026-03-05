@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Footer, TopMenu } from '@/components/ui';
+import { Footer, Sidebar, TopMenu } from '@/components/ui';
 import { getPaginatedProductsWithImages } from '@/actions';
 import { Button } from '@/components/ui/button';
 
@@ -156,6 +156,7 @@ export default async function App() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#0F0F13]">
       <TopMenu />
+      <Sidebar />
       <Hero />
       <FeaturedTemplates />
       <Footer />

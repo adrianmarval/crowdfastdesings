@@ -52,28 +52,47 @@ Debes crear tu propio archivo `.env` basado en `.env.example`:
 cp .env.example .env
 ```
 
-A continuación, se documenta la sintaxis y cómo establecer cada una de las variables del `.env.example`:
+A continuación, se documenta la sintaxis y cómo obtener o establecer cada una de las variables requeridas en `.env.example`:
 
 #### Base de Datos (PostgreSQL)
 
-- **`DB_USER`** (Ej. `postgres`): El usuario administrador. El archivo `docker-compose` lo lee para iniciar sesión.
+- **`DB_USER`** (Ej. `postgres`): El usuario de la base de datos.
 - **`DB_NAME`** (Ej. `crowdfastdesigns`): El nombre de tu base de datos principal.
 - **`DB_PASSWORD`** (Ej. `123456`): Contraseña asignada al usuario.
-- **`DATABASE_URL`** (Ej. `postgresql://postgres:123456@localhost:5432/crowdfastdesigns?schema=public`): La URL de conexión requerida por Prisma ORM. Debes editarla para que concuerde con tu `DB_USER`, `DB_PASSWORD` y `DB_NAME`.
+- **`DATABASE_URL`** (Ej. `postgresql://postgres:123456@localhost:5432/crowdfastdesigns?schema=public`): La URL de conexión requerida por Prisma ORM.
+
+#### Aplicación (App)
+
+- **`NEXT_PUBLIC_APP_URL`** (Ej. `http://localhost:3000`): La URL pública principal de la app para que los componentes front-end envíen correos y hagan redurecciones correctas.
 
 #### Autenticación (Better Auth)
 
-- **`BETTER_AUTH_SECRET`**: Clave secreta vital utilizada para cifrar/firmar tokens y cookies de las sesiones de usuario en tu app. _¿Cómo generarla?_ Puedes obtener una rápidamente tipeando en tu consola: `openssl rand -base64 32` o usa el utilitario incluído ejecutando `npx @better-auth/cli generate`.
-- **`BETTER_AUTH_URL`** (Ej. `http://localhost:3000`): La URL base pública de tu aplicación, necesaria para procesar redirecciones de _callback_ del auth de modo seguro.
+- **`BETTER_AUTH_SECRET`**: Clave secreta utilizada para cifrar/firmar tokens y cookies de las sesiones de usuario. Genera una ejecutando en la terminal: `npx @better-auth/cli generate secret` o `openssl rand -base64 32`.
+- **`BETTER_AUTH_URL`** (Ej. `http://localhost:3000`): La URL base de tu aplicación, necesaria para resoluciones correctas con Better Auth.
 
-#### Correos Transaccionales
+#### Correos Transaccionales (Resend)
 
-- **`RESEND_API_KEY`**: El token para integrarte a Resend y enviar confirmaciones y recibos. Se genera yendo al dashboard en [Resend.com](https://resend.com/api-keys), dándole a "Crear API Key".
+- **`RESEND_API_KEY`**: El token para integrarte a Resend y enviar correos transaccionales (recibos, confirmaciones). Obtenlo desde [Resend.com](https://resend.com/api-keys).
 
-#### Pasarela de Pago
+#### Pasarela de Pago (PayPal)
 
-- **`NEXT_PUBLIC_PAYPAL_CLIENT_ID`**: Clave pública para que el botón SDK visualice opciones de pago en el Front-End. Obtén esta credencial iniciando sesión en [PayPal Developer](https://developer.paypal.com/), dirigiéndote a _Apps & Credentials_ y creando una aplicación (usa el modo _Sandbox_ interactivamente para el desarrollo).
-- **`PAYPAL_SECRET`**: El secreto que provee PayPal para el uso exclusivo del servidor. Otorga al Backend la capacidad para capturar el pago verificado u obtener tokens administrativos. (Igualmente lo encuentras debajo de tu _Client ID_ en el panel de PayPal).
+- **`NEXT_PUBLIC_PAYPAL_CLIENT_ID`**: Clave pública para visualizar el botón de pago en el front-end. Obtenla desde [PayPal Developer](https://developer.paypal.com/dashboard/applications).
+- **`PAYPAL_SECRET`**: Llave privada utilizada exclusivamente por el servidor para verificar pagos.
+- **`PAYPAL_OAUTH_URL`** y **`PAYPAL_ORDERS_URL`**: Por defecto configuradas para _Sandbox_. Para migrar a entorno real (producción), reemplaza `api-m.sandbox` por `api-m` y `api.sandbox` por `api`.
+
+#### Backend y Almacenamiento (Appwrite Cloud / Local)
+
+Las variables _públicas_ exponen endpoints o ID de proyecto y pueden leerse desde los componentes web.
+
+- **`NEXT_PUBLIC_APPWRITE_PROJECT_ID`**: ID único de tu proyecto (Settings > Project ID).
+- **`NEXT_PUBLIC_APPWRITE_PROJECT_NAME`**: Nombre de tu proyecto.
+- **`NEXT_PUBLIC_APPWRITE_ENDPOINT`** (Ej. `https://cloud.appwrite.io/v1`): Servidor base a conectar.
+- **`NEXT_PUBLIC_APPWRITE_IMAGES_BUCKET`**: ID del Bucket (Storage) empleado para guardar las imágenes visibles de los productos digitales (debe tener lectura pública).
+
+Las variables _privadas_ son críticas para permitir Server Actions (para no dejar expuestos archivos internos).
+
+- **`APPWRITE_ZIPS_BUCKET`**: El bucket privado de Storage donde se alojan los archivos comprimidos interactivos a descargar tras el pago. Sus permisos nunca deben estar en abierto.
+- **`APPWRITE_API_KEY`**: Llave API generada con acceso a Databes y Storage para que el servidor pueda manipular archivos sin ser bloqueado. (Overview > Integrations > API Keys).
 
 ### 4. Generar e Inicializar Data Inicial (A través del Seed)
 

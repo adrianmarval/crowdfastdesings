@@ -1,9 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
-
 import Link from 'next/link';
 import { IoCartOutline, IoHomeOutline } from 'react-icons/io5';
-
 import { titleFont } from '@/config/fonts';
 import { useCartStore, useUiStore } from '@/store/';
 import { ThemeToggle } from '../theme-toggle';
@@ -13,7 +11,6 @@ import { Button } from '@/components/ui/button';
 export const TopMenu = () => {
   const openSideMenu = useUiStore((state) => state.openSideMenu);
   const totalItemsInCart = useCartStore((state) => state.getTotalItems());
-  const theme = useUiStore((state) => state.theme);
 
   const [isClient, setIsClient] = useState(false);
 
