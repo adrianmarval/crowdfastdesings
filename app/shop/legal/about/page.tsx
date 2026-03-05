@@ -83,7 +83,7 @@ export default function AboutPage() {
         <section className="text-center text-sm text-gray-500">
           <p>
             Have questions or interested in a custom collaboration?{' '}
-            <Link href="/legal/contact" className="text-blue-600 hover:underline">
+            <Link href="/shop/legal/contact" className="text-blue-600 hover:underline">
               Get in touch
             </Link>
           </p>

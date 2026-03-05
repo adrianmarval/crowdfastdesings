@@ -1,6 +1,7 @@
 'use server';
 
 import prisma from '@/lib/prisma';
+import { resolveProductImageUrl } from '@/lib/resolve-image-url';
 
 export const searchProducts = async (query: string) => {
   if (!query || query.trim().length === 0) {
@@ -46,20 +47,8 @@ export const searchProducts = async (query: string) => {
     });
 
     return products.map((product) => {
-      let imageUrl = '/imgs/placeholder.png'; // Default placeholder
-
-      if (product.ProductImage && product.ProductImage.length > 0) {
-        const firstImagePath = product.ProductImage[0].url;
-
-        if (firstImagePath) {
-          if (firstImagePath.startsWith('http') || firstImagePath.startsWith('/')) {
-            imageUrl = firstImagePath;
-          } else {
-            // According to seed script, images are saved as "folderName/image.png"
-            imageUrl = `/products/${firstImagePath}`;
-          }
-        }
-      }
+      const firstImagePath = product.ProductImage?.[0]?.url;
+      const imageUrl = resolveProductImageUrl(firstImagePath);
 
       return {
         id: product.id,

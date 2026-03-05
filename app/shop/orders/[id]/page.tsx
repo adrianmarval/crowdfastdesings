@@ -6,6 +6,7 @@ import { OrderStatus } from '@/components/orders/OrderStatus';
 import { Title } from '@/components/ui';
 import { PayPalButton } from '@/components/paypal/PayPalButton';
 import { DownloadButton } from '@/components/orders/DownloadButton';
+import { resolveProductImageUrl } from '@/lib/resolve-image-url';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -37,7 +38,7 @@ export default async function OrdersByIdPage({ params }: Props) {
             {order!.OrderItem.map((item) => (
               <div key={item.product.slug} className="mb-5 flex items-start">
                 <Image
-                  src={`/products/${item.product.ProductImage[0].url}`}
+                  src={resolveProductImageUrl(item.product.ProductImage[0]?.url)}
                   width={100}
                   height={100}
                   style={{

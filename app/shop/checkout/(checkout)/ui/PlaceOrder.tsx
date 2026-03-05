@@ -93,11 +93,11 @@ export const PlaceOrder = () => {
           {/* Disclaimer */}
           <span className="text-xs text-gray-600 dark:text-gray-400">
             By clicking &quot;Place Order&quot;, you agree to our{' '}
-            <Link href="/legal/terms" className="underline hover:text-gray-900 dark:hover:text-white" target="_blank">
+            <Link href="/shop/legal/terms" className="underline hover:text-gray-900 dark:hover:text-white" target="_blank">
               terms and conditions
             </Link>{' '}
             and{' '}
-            <Link href="/legal/privacy" className="underline hover:text-gray-900 dark:hover:text-white" target="_blank">
+            <Link href="/shop/legal/privacy" className="underline hover:text-gray-900 dark:hover:text-white" target="_blank">
               privacy policy
             </Link>
             .

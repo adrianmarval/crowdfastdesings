@@ -15,7 +15,7 @@ export default async function ProductPage({ params }: Props) {
 
   // Todo: new
   if (!product && slug !== 'new') {
-    redirect('/admin/products');
+    redirect('/shop/admin/products');
   }
 
   let zipFileName = null;

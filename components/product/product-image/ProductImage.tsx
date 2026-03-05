@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { resolveProductImageUrl } from '@/lib/resolve-image-url';
 
 interface Props {
   src?: string;
@@ -11,6 +12,6 @@ interface Props {
 }
 
 export const ProductImage = ({ src, alt, className, style, width, height, priority = false }: Props) => {
-  const localSrc = src ? (src.startsWith('http') ? src : `/products/${src}`) : '/imgs/placeholder.jpg';
+  const localSrc = resolveProductImageUrl(src);
   return <Image src={localSrc} width={width} height={height} alt={alt} className={className} style={style} priority={priority} />;
 };

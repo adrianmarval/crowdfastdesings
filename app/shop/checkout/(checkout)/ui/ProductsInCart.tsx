@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 import { useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
+import { resolveProductImageUrl } from '@/lib/resolve-image-url';
 
 export const ProductsInCart = () => {
   const [loaded, setLoaded] = useState(false);
@@ -24,7 +25,7 @@ export const ProductsInCart = () => {
       {productsInCart.map((product) => (
         <div key={`${product.slug}`} className="mb-5 flex">
           <Image
-            src={`/products/${product.image}`}
+            src={resolveProductImageUrl(product.image)}
             width={100}
             height={100}
             style={{

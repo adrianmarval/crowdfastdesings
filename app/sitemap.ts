@@ -14,14 +14,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
 
     const productUrls: MetadataRoute.Sitemap = products.map((product) => ({
-      url: `${baseUrl}/product/${product.slug}`,
+      url: `${baseUrl}/shop/product/${product.slug}`,
       lastModified: product.updatedAt,
       changeFrequency: 'weekly',
       priority: 0.8,
     }));
 
     const categoryUrls: MetadataRoute.Sitemap = categories.map((category) => ({
-      url: `${baseUrl}/category/${category.id}`,
+      url: `${baseUrl}/shop/category/${category.id}`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -35,7 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 1,
       },
       {
-        url: `${baseUrl}/cart`,
+        url: `${baseUrl}/shop/cart`,
         lastModified: new Date(),
         changeFrequency: 'yearly',
         priority: 0.5,

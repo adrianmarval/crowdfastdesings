@@ -5,6 +5,7 @@ import { Star, Share2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { titleFont } from '@/config/fonts';
 import { getProductBySlug, getAllProductSlugs } from '@/actions';
+import { resolveProductImageUrl } from '@/lib/resolve-image-url';
 import { AddToCart } from './ui/AddToCart';
 import Markdown from 'react-markdown';
 
@@ -31,8 +32,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
 
   const title = `${product.title} | Crowdfast Designs`;
   const description = product.description?.substring(0, 160) || 'Download this amazing resource at Crowdfast Designs.';
-  // Ensure the image URL format is absolute or relative based on Next.js OG guidelines. Assuming `/products/[image]` is handled correctly via metadataBase.
-  const imageUrl = product.images?.[0] ? `/products/${product.images[0]}` : '/default-og-image.png';
+  const imageUrl = resolveProductImageUrl(product.images?.[0]);
 
   return {
     title: product.title,
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
     openGraph: {
       title: title,
       description: description,
-      url: `/product/${product.slug}`,
+      url: `/shop/product/${product.slug}`,
       images: [
         {
           url: imageUrl,
