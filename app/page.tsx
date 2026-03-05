@@ -110,7 +110,7 @@ const Hero = () => {
 };
 
 const TemplateCard: React.FC<{ title: string; price: number; image: string; slug: string }> = ({ title, price, image, slug }) => {
-  const displayImage = resolveProductImageUrl(image, { width: 600, height: 450 });
+  const displayImage = resolveProductImageUrl(image);
   return (
     <Link href={`/shop/product/${slug}`} className="card-bg group flex h-full cursor-pointer flex-col">
       <div className="relative aspect-4/3 overflow-hidden bg-white dark:bg-[#0F0F13]">
