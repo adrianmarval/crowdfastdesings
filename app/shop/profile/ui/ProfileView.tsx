@@ -67,7 +67,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ user: initialUser }) =
     try {
       const { error } = await authClient.sendVerificationEmail({
         email: user.email,
-        callbackURL: window.location.origin + '/profile',
+        callbackURL: window.location.origin + '/shop/profile',
       });
 
       if (error) {
