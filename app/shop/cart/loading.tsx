@@ -9,16 +9,16 @@ export default function CartLoading() {
           {/* Cart Items Skeleton */}
           <div className="mt-5 flex flex-col">
             <span className="text-xl">Add more items</span>
-            <div className="mb-5 h-5 w-32 animate-pulse rounded bg-slate-200 dark:bg-slate-800" />
+            <div className="mb-5 h-5 w-32 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
 
             {/* Products In Cart Skeletons */}
             {[...Array(3)].map((_, i) => (
               <div key={i} className="mb-5 flex">
-                <div className="h-[100px] w-[100px] animate-pulse rounded bg-slate-200 dark:bg-slate-800" />
+                <div className="h-[100px] w-[100px] animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                 <div className="ml-5 flex w-full flex-col gap-2">
-                  <div className="h-5 w-3/4 animate-pulse rounded bg-slate-200 dark:bg-slate-800" />
-                  <div className="h-5 w-1/4 animate-pulse rounded bg-slate-200 dark:bg-slate-800" />
-                  <div className="h-5 w-1/3 animate-pulse rounded bg-slate-200 dark:bg-slate-800" />
+                  <div className="h-5 w-3/4 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+                  <div className="h-5 w-1/4 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+                  <div className="h-5 w-1/3 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                 </div>
               </div>
             ))}
@@ -29,20 +29,20 @@ export default function CartLoading() {
             <h2 className="mb-2 text-2xl">Order Summary</h2>
             <div className="mt-4 flex flex-col gap-4">
               <div className="flex justify-between">
-                <div className="h-5 w-1/4 animate-pulse rounded bg-slate-200 dark:bg-slate-800" />
-                <div className="h-5 w-1/4 animate-pulse rounded bg-slate-200 dark:bg-slate-800" />
+                <div className="h-5 w-1/4 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+                <div className="h-5 w-1/4 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
               </div>
               <div className="flex justify-between">
-                <div className="h-5 w-1/4 animate-pulse rounded bg-slate-200 dark:bg-slate-800" />
-                <div className="h-5 w-1/4 animate-pulse rounded bg-slate-200 dark:bg-slate-800" />
+                <div className="h-5 w-1/4 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+                <div className="h-5 w-1/4 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
               </div>
               <div className="flex justify-between">
-                <div className="h-6 w-1/3 animate-pulse rounded bg-slate-200 dark:bg-slate-800" />
-                <div className="h-6 w-1/3 animate-pulse rounded bg-slate-200 dark:bg-slate-800" />
+                <div className="h-6 w-1/3 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+                <div className="h-6 w-1/3 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
               </div>
             </div>
 
-            <div className="mt-5 mb-2 h-14 w-full animate-pulse rounded-sm bg-slate-200 dark:bg-slate-800" />
+            <div className="mt-5 mb-2 h-14 w-full animate-pulse rounded-sm bg-slate-300 dark:bg-slate-700" />
           </div>
         </div>
       </div>
