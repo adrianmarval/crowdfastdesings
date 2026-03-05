@@ -1,9 +1,9 @@
-export const revalidate = 60; // 60 segundos
+export const revalidate = 3600; // 60 minutos
 
 import { redirect } from 'next/navigation';
 import { notFound } from 'next/navigation';
 
-import { getPaginatedProductsWithImages } from '@/actions';
+import { getPaginatedProductsWithImages, getCategories } from '@/actions';
 
 import { Pagination } from '@/components/ui/pagination/Pagination';
 import { Title } from '@/components/ui/title/Title';
@@ -48,6 +48,14 @@ interface Props {
   searchParams: Promise<{
     page?: string;
   }>;
+}
+
+export async function generateStaticParams() {
+  const categories = await getCategories();
+
+  return categories.map((category) => ({
+    id: category.name,
+  }));
 }
 
 export default async function CategoryPage(props: Props) {

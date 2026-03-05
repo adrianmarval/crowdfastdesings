@@ -1,10 +1,10 @@
-export const revalidate = 604800; //7 días
+export const revalidate = 3600; // 60 minutos
 import { Metadata, ResolvingMetadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Star, Share2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { titleFont } from '@/config/fonts';
-import { getProductBySlug } from '@/actions';
+import { getProductBySlug, getAllProductSlugs } from '@/actions';
 import { AddToCart } from './ui/AddToCart';
 import Markdown from 'react-markdown';
 
@@ -58,6 +58,14 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
       images: [imageUrl],
     },
   };
+}
+
+export async function generateStaticParams() {
+  const products = await getAllProductSlugs();
+
+  return products.map((product) => ({
+    slug: product.slug,
+  }));
 }
 
 export default async function ProductBySlugPage({ params }: Props) {
