@@ -23,7 +23,6 @@ export const ProductGridItem = ({ product }: Props) => {
           className="w-full rounded object-cover"
           width={1920}
           height={1080}
-          priority={true}
           onMouseEnter={() => {
             if (product.images[1]) setDisplayImage(resolveProductImageUrl(product.images[1]));
           }}
