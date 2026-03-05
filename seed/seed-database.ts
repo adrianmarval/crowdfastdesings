@@ -1,8 +1,63 @@
 import prisma from '../lib/prisma';
 import { initialData } from './seed';
-import fs from 'fs';
-import path from 'path';
 import { countries } from './seed-countries';
+import { Client, Storage, Query } from 'node-appwrite';
+
+// ── Appwrite setup for listing images ───────────────────────────────────
+const client = new Client()
+  .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT || '')
+  .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID || '')
+  .setKey(process.env.APPWRITE_API_KEY || '');
+
+const storage = new Storage(client);
+const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_IMAGES_BUCKET || '';
+const ENDPOINT = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT || '';
+const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID || '';
+
+function buildAppwriteViewUrl(fileId: string): string {
+  return `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${fileId}/view?project=${PROJECT_ID}`;
+}
+
+/**
+ * Fetches ALL files from the Appwrite bucket (paginated).
+ * Returns a Map: slug → array of Appwrite view URLs.
+ *
+ * Files are named with convention: "slug--filename.webp"
+ */
+async function loadAllAppwriteImages(): Promise<Map<string, string[]>> {
+  const imagesBySlug = new Map<string, string[]>();
+  let offset = 0;
+  const limit = 100;
+  let totalFiles = 0;
+
+  console.log('🔍 Loading all images from Appwrite bucket...');
+
+  while (true) {
+    const response = await storage.listFiles(BUCKET_ID, [Query.limit(limit), Query.offset(offset)]);
+
+    for (const file of response.files) {
+      // Extract slug from naming convention: "slug--filename.webp"
+      const separatorIndex = file.name.indexOf('--');
+      if (separatorIndex === -1) continue; // Skip files without our naming convention
+
+      const slug = file.name.substring(0, separatorIndex);
+      const url = buildAppwriteViewUrl(file.$id);
+
+      if (!imagesBySlug.has(slug)) {
+        imagesBySlug.set(slug, []);
+      }
+      imagesBySlug.get(slug)!.push(url);
+    }
+
+    totalFiles += response.files.length;
+
+    if (response.files.length < limit) break;
+    offset += limit;
+  }
+
+  console.log(`   ✅ Loaded ${totalFiles} files for ${imagesBySlug.size} products\n`);
+  return imagesBySlug;
+}
 
 async function main() {
   await prisma.orderAddress.deleteMany();
@@ -14,18 +69,13 @@ async function main() {
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
 
-  const { products: seedProducts, categories, users } = initialData;
-
-  // // 1. Crear Usuarios
-  // await prisma.user.createMany({
-  //   data: users,
-  // });
+  const { products: seedProducts, categories } = initialData;
 
   await prisma.country.createMany({
     data: countries,
   });
 
-  // 2. Crear Categorías
+  // 1. Crear Categorías
   const categoriesData = categories.map((name) => ({ name }));
   await prisma.category.createMany({
     data: categoriesData,
@@ -40,56 +90,33 @@ async function main() {
     {} as Record<string, string>,
   );
 
-  // 3. Productos dinámicos desde directorios
-  const productsDir = path.join(process.cwd(), 'public', 'products');
-  const productFolders = fs.readdirSync(productsDir).filter((folder) => {
-    return folder !== '.DS_Store' && fs.statSync(path.join(productsDir, folder)).isDirectory();
-  });
+  // 2. Load all images from Appwrite (one call, no per-product queries)
+  const imagesBySlug = await loadAllAppwriteImages();
 
-  for (const folderName of productFolders) {
-    // Buscar metadata en el seed o usar defaults
-    const seedProduct = seedProducts.find((p) => p.slug === folderName);
+  // 3. Crear Productos con imágenes desde Appwrite
+  for (const seedProduct of seedProducts) {
+    const slug = seedProduct.slug;
+    const categoryKey = seedProduct.category || 'dashboards';
 
-    const title =
-      seedProduct?.title ||
-      folderName
-        .split('-')
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-    const slug = title
-      .toLowerCase()
-      .replace(/ /g, '-')
-      .replace(/[^\w-]+/g, '');
+    const imagePaths = imagesBySlug.get(slug) || [];
 
-    let frameworkArray = ['react'];
-    if (title.toLowerCase().includes('nextjs')) frameworkArray = ['react', 'nextjs'];
-    else if (title.toLowerCase().includes('astro')) frameworkArray = ['astro'];
-
-    frameworkArray = seedProduct?.framework || frameworkArray;
-
-    const categoryKey = seedProduct?.category || 'dashboards';
-
-    // Leer imagenes del directorio exacto local
-    const folderPath = path.join(productsDir, folderName);
-    const imageFiles = fs.readdirSync(folderPath).filter((file) => {
-      return file.match(/\.(png|jpe?g|webp|gif|svg)$/i);
-    });
-
-    // Guardaremos el path que espera nuestro componente: `/products/${folderName}/${file}` ya lo hacemos dinámicamente en UI
-    // Así que guardaremos sólamente `NombreCarpeta/nombre_imagen.png` para mantener URLs limpias.
-    const imagePaths = imageFiles.map((file) => `${folderName}/${file}`);
+    if (imagePaths.length === 0) {
+      console.log(`📦 ${seedProduct.title} — ⚠️  no images in Appwrite`);
+    } else {
+      console.log(`📦 ${seedProduct.title} — ✅ ${imagePaths.length} images`);
+    }
 
     const dbProduct = await prisma.product.create({
       data: {
-        title: title,
-        slug: seedProduct?.slug || slug,
-        description: seedProduct?.description || `Description for ${title}`,
-        price_usd: seedProduct?.price_usd || 0,
-        file_url: seedProduct?.file_url || '',
-        downloads: seedProduct?.downloads || 0,
+        title: seedProduct.title,
+        slug: slug,
+        description: seedProduct.description || `Description for ${seedProduct.title}`,
+        price_usd: seedProduct.price_usd || 0,
+        file_url: seedProduct.file_url || '',
+        downloads: seedProduct.downloads || 0,
         categoryId: categoriesMap[categoryKey],
         tags: {
-          set: seedProduct?.tags || frameworkArray,
+          set: seedProduct.tags || ['react'],
         },
         images: {
           set: imagePaths,
@@ -97,19 +124,17 @@ async function main() {
       },
     });
 
-    const imagesData = imagePaths.map((url) => ({
-      url,
-      productId: dbProduct.id,
-    }));
-
-    if (imagesData.length > 0) {
+    if (imagePaths.length > 0) {
       await prisma.productImage.createMany({
-        data: imagesData,
+        data: imagePaths.map((url) => ({
+          url,
+          productId: dbProduct.id,
+        })),
       });
     }
   }
 
-  console.log('Seed ejecutado correctamente con lectura dinámica de imágenes.');
+  console.log('\n✅ Seed ejecutado correctamente con imágenes desde Appwrite.');
 }
 
 main();

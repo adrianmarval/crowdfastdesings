@@ -16,11 +16,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: 'appwrite-pckgos4gg8g4gog8gk4o8ggk.185.209.228.49.sslip.io',
+        hostname: 'appwrite-twccswskks4c4k0w00o80g44.185.209.228.49.sslip.io',
       },
       {
         protocol: 'https',
-        hostname: 'appwrite-pckgos4gg8g4gog8gk4o8ggk.185.209.228.49.sslip.io',
+        hostname: 'appwrite-twccswskks4c4k0w00o80g44.185.209.228.49.sslip.io',
       },
     ],
   },
