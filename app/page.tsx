@@ -144,7 +144,7 @@ const FeaturedTemplates = async () => {
               slug={product.slug}
               title={product.title}
               price={product.price_usd}
-              image={product.images[0] || 'placeholder.jpg'}
+              image={product.images[0] || 'placeholder.webp'}
             />
           ))}
         </div>

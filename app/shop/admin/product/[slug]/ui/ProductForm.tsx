@@ -135,6 +135,7 @@ export const ProductForm = ({ product, categories, initialZipFileName }: Props) 
     accept: {
       'image/png': ['.png'],
       'image/jpeg': ['.jpg', '.jpeg'],
+      'image/webp': ['.webp'],
       'image/avif': ['.avif'],
     },
   });
@@ -344,7 +345,7 @@ export const ProductForm = ({ product, categories, initialZipFileName }: Props) 
               ) : (
                 <div className="text-center">
                   <p className="text-sm font-medium dark:text-gray-300">Arrastra y suelta imágenes aquí, o haz clic para seleccionar</p>
-                  <p className="mt-2 text-xs text-gray-500">Formatos soportados: PNG, JPG, JPEG, AVIF</p>
+                  <p className="mt-2 text-xs text-gray-500">Formatos soportados: WebP, AVIF, PNG, JPG, JPEG</p>
                 </div>
               )}
             </div>

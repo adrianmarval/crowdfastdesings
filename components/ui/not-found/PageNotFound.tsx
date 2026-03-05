@@ -10,14 +10,14 @@ export const PageNotFound = () => {
         <p className="text-xl font-semibold">Whoops! We are very sorry.</p>
         <p className="font-light">
           <span>You can return to </span>
-          <Link href="/shop" className="font-normal transition-all hover:underline text-xl text-green-600 underline">
+          <Link href="/shop" className="text-xl font-normal text-green-600 underline transition-all hover:underline">
             Home
           </Link>
         </p>
       </div>
 
       <div className="mx-5 px-5">
-        <Image src="/imgs/starman_750x750.png" alt="Starman" className="p-5 sm:p-0" width={550} height={550} />
+        <Image src="/imgs/starman_750x750.webp" alt="Starman" className="p-5 sm:p-0" width={550} height={550} />
       </div>
     </div>
   );
