@@ -6,8 +6,8 @@ export default function ShopLoading() {
       <Title title="Templates Store" subtitle="High-quality interfaces designed to help you build faster." className="mb-8" />
 
       <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-        {[...Array(8)].map((_, i) => (
-          <div key={i} className="fade-in overflow-hidden rounded-md">
+        {[1, 2, 3, 4, 5, 6, 7, 8].map((id) => (
+          <div key={id} className="fade-in overflow-hidden rounded-md">
             {/* Image Placeholder */}
             <div className="aspect-5/3 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
 

@@ -5,8 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 
 export function SocketStatusCard() {
-  const [isConnected, setIsConnected] = useState(false);
-  const [transport, setTransport] = useState('N/A');
+  const [status, setStatus] = useState({ isConnected: false, transport: 'N/A' });
 
   useEffect(() => {
     if (socket.connected) {
@@ -14,17 +13,15 @@ export function SocketStatusCard() {
     }
 
     function onConnect() {
-      setIsConnected(true);
-      setTransport(socket.io.engine.transport.name);
+      setStatus({ isConnected: true, transport: socket.io.engine.transport.name });
 
       socket.io.engine.on('upgrade', (transport) => {
-        setTransport(transport.name);
+        setStatus((prev) => ({ ...prev, transport: transport.name }));
       });
     }
 
     function onDisconnect() {
-      setIsConnected(false);
-      setTransport('N/A');
+      setStatus({ isConnected: false, transport: 'N/A' });
     }
 
     socket.on('connect', onConnect);
@@ -42,8 +39,8 @@ export function SocketStatusCard() {
         <CardTitle>Socket Status</CardTitle>
       </CardHeader>
       <CardContent>
-        <p>Status: {isConnected ? 'connected' : 'disconnected'}</p>
-        <p>Transport: {transport}</p>
+        <p>Status: {status.isConnected ? 'connected' : 'disconnected'}</p>
+        <p>Transport: {status.transport}</p>
       </CardContent>
     </Card>
   );

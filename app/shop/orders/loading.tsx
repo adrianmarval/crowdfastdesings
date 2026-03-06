@@ -27,8 +27,8 @@ export default function OrdersLoading() {
             </tr>
           </thead>
           <tbody>
-            {[...Array(5)].map((_, i) => (
-              <tr key={i} className="border-b bg-white transition duration-300 ease-in-out dark:border-gray-700 dark:bg-[#2f2d2d]">
+            {[1, 2, 3, 4, 5].map((id) => (
+              <tr key={id} className="border-b bg-white transition duration-300 ease-in-out dark:border-gray-700 dark:bg-[#2f2d2d]">
                 <td className="hidden px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900 md:block dark:text-gray-100">
                   <div className="h-4 w-32 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                 </td>

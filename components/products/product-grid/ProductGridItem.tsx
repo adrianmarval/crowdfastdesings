@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const ProductGridItem = ({ product }: Props) => {
-  const [displayImage, setDisplayImage] = useState(resolveProductImageUrl(product.images[0]));
+  const [displayImage, setDisplayImage] = useState(() => resolveProductImageUrl(product.images[0]));
 
   return (
     <div className="fade-in overflow-hidden rounded-md">

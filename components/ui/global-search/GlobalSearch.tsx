@@ -93,7 +93,7 @@ export function GlobalSearch() {
                 >
                   <div className="flex items-center gap-4">
                     <div className="relative h-12 w-20 overflow-hidden rounded-md border shadow-sm">
-                      <Image src={product.image} alt={product.title} fill className="object-cover" />
+                      <Image src={product.image} alt={product.title} fill sizes="(max-width: 768px) 100vw, 20vw" className="object-cover" />
                     </div>
                     <div className="flex flex-col">
                       <span className="font-semibold">{product.title}</span>

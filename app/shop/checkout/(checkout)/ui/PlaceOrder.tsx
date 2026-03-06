@@ -11,10 +11,11 @@ import { currencyFormat } from '@/utils';
 import { useShallow } from 'zustand/react/shallow';
 import { Button } from '@/components/ui/button';
 import { FaCcVisa, FaCcMastercard, FaCcAmex } from 'react-icons/fa';
+import { useIsMounted } from '@/hooks';
 
 export const PlaceOrder = () => {
   const router = useRouter();
-  const [loaded, setLoaded] = useState(false);
+  const loaded = useIsMounted();
   const [errorMessage, setErrorMessage] = useState('');
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
@@ -23,10 +24,6 @@ export const PlaceOrder = () => {
   const { itemsInCart, subTotal, tax, total } = useCartStore(useShallow((state) => state.getSummaryInformation()));
   const cart = useCartStore(useShallow((state) => state.cart));
   const clearCart = useCartStore((state) => state.clearCart);
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
 
   const onPlaceOrder = async () => {
     setIsPlacingOrder(true);

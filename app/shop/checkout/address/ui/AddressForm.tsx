@@ -28,7 +28,9 @@ interface Props {
   userStoredAddress?: Partial<Address>;
 }
 
-export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
+const EMPTY_ADDRESS: Partial<Address> = {};
+
+export const AddressForm = ({ countries, userStoredAddress = EMPTY_ADDRESS }: Props) => {
   const router = useRouter();
   const {
     handleSubmit,

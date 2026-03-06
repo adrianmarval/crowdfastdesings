@@ -24,8 +24,8 @@ export default function LegalLoading() {
         </section>
 
         <section className="grid grid-cols-1 gap-8 py-4 md:grid-cols-2">
-          {[...Array(2)].map((_, i) => (
-            <div key={i} className="rounded-2xl border border-gray-100 bg-gray-50 p-6 dark:border-gray-800 dark:bg-white/5">
+          {[1, 2].map((id) => (
+            <div key={id} className="rounded-2xl border border-gray-100 bg-gray-50 p-6 dark:border-gray-800 dark:bg-white/5">
               <div className="mb-3 h-6 w-32 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
               <div className="space-y-2">
                 <div className="h-3 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />

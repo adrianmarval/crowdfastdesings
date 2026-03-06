@@ -1,5 +1,4 @@
 'use client';
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { IoCartOutline, IoHomeOutline } from 'react-icons/io5';
 import { titleFont } from '@/config/fonts';
@@ -7,16 +6,13 @@ import { useCartStore, useUiStore } from '@/store/';
 import { ThemeToggle } from '../theme-toggle';
 import { GlobalSearch } from '../global-search/GlobalSearch';
 import { Button } from '@/components/ui/button';
+import { useIsMounted } from '@/hooks';
 
 export const TopMenu = () => {
   const openSideMenu = useUiStore((state) => state.openSideMenu);
   const totalItemsInCart = useCartStore((state) => state.getTotalItems());
 
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const isClient = useIsMounted();
 
   return (
     <nav className="flex h-16 w-full items-center justify-between bg-white px-2 sm:px-20 dark:bg-[#0C0A09]">

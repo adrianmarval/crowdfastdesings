@@ -3,24 +3,21 @@
 import { useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useShallow } from 'zustand/react/shallow';
+import { useIsMounted } from '@/hooks';
 
 export const OrderSummary = () => {
   const router = useRouter();
 
-  const [loaded, setLoaded] = useState(false);
+  const loaded = useIsMounted();
   const { itemsInCart, subTotal, tax, total } = useCartStore(useShallow((state) => state.getSummaryInformation()));
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
 
   useEffect(() => {
     if (itemsInCart === 0 && loaded === true) {
       router.replace('/shop/empty');
     }
-  }, [itemsInCart, loaded]);
+  }, [itemsInCart, loaded, router]);
 
   if (!loaded) return <p>Loading...</p>;
 

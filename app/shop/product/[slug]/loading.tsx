@@ -9,8 +9,8 @@ export default function ProductDetailLoading() {
               <div className="overflow-hidden rounded-[24px] bg-gray-50/50 p-2 dark:bg-white/5">
                 <div className="aspect-4/3 w-full animate-pulse rounded-[16px] bg-slate-300 dark:bg-slate-700" />
                 <div className="mt-2 hidden grid-cols-4 gap-2 md:grid">
-                  {[...Array(4)].map((_, i) => (
-                    <div key={i} className="aspect-square w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+                  {[1, 2, 3, 4].map((id) => (
+                    <div key={id} className="aspect-square w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                   ))}
                 </div>
               </div>
@@ -48,8 +48,8 @@ export default function ProductDetailLoading() {
                 <div className="mb-10">
                   <div className="mb-4 h-4 w-24 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                   <div className="space-y-3">
-                    {[...Array(6)].map((_, i) => (
-                      <div key={i} className="h-4 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+                    {[1, 2, 3, 4, 5, 6].map((id) => (
+                      <div key={id} className="h-4 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                     ))}
                     <div className="h-4 w-3/4 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                   </div>

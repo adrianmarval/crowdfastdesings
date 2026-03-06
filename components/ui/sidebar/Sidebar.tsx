@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 import {
@@ -18,6 +17,7 @@ import { useUiStore } from '@/store';
 import { authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import { GlobalSearch } from '../global-search/GlobalSearch';
+import { useIsMounted } from '@/hooks';
 
 export const Sidebar = () => {
   const isSideMenuOpen = useUiStore((state) => state.isSideMenuOpen);
@@ -28,11 +28,7 @@ export const Sidebar = () => {
   const isAdmin = session?.user.role === 'admin';
   const router = useRouter();
 
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
+  const isLoaded = useIsMounted();
 
   async function handleLogOut() {
     await authClient.signOut({

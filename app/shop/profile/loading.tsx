@@ -9,8 +9,8 @@ export default function ProfileLoading() {
           <div className="mt-2 h-4 w-1/2 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
         </div>
         <div className="mt-8 space-y-4">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-10 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+          {[1, 2, 3, 4].map((id) => (
+            <div key={id} className="h-10 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
           ))}
         </div>
       </div>
@@ -20,8 +20,8 @@ export default function ProfileLoading() {
         <div className="mx-auto max-w-2xl">
           <div className="mb-6 h-8 w-1/3 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
           <div className="space-y-6">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="flex flex-col gap-2">
+            {[1, 2, 3].map((id) => (
+              <div key={id} className="flex flex-col gap-2">
                 <div className="h-4 w-1/4 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                 <div className="h-12 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
               </div>

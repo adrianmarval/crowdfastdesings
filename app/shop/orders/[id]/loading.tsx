@@ -11,8 +11,8 @@ export default function OrderByIdLoading() {
           <div className="mt-5 flex flex-col gap-5">
             <div className="mb-4 h-10 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
 
-            {[...Array(2)].map((_, i) => (
-              <div key={i} className="flex flex-row items-start gap-5">
+            {[1, 2].map((id) => (
+              <div key={id} className="flex flex-row items-start gap-5">
                 <div className="h-[100px] w-[100px] shrink-0 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                 <div className="flex w-full flex-col gap-2">
                   <div className="h-5 w-3/4 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />

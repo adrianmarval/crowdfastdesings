@@ -51,8 +51,8 @@ const Hero = () => {
             {/* Sidebar - Left */}
             <div className="absolute top-[10%] left-[0%] z-10 h-[280px] w-[140px] rotate-[-8deg] transform space-y-3.5 rounded-xl border border-white/10 bg-[#18181F] p-3.5 shadow-xl">
               <div className="bg-brand-purple/20 mb-5 h-7 w-7 rounded"></div>
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="flex items-center gap-2.5">
+              {[1, 2, 3, 4, 5].map((id) => (
+                <div key={id} className="flex items-center gap-2.5">
                   <div className="h-3.5 w-3.5 rounded bg-white/5"></div>
                   <div className="h-1 flex-1 rounded bg-white/10"></div>
                 </div>
@@ -76,8 +76,8 @@ const Hero = () => {
             <div className="absolute top-[30%] right-[0%] z-10 h-[200px] w-[180px] rotate-6 transform rounded-xl border border-white/10 bg-[#18181F] p-3.5 shadow-xl">
               <div className="mb-3 h-1.5 w-1/2 rounded bg-white/10"></div>
               <div className="flex h-24 items-end gap-1.5">
-                {[40, 70, 50, 90, 60].map((h, i) => (
-                  <div key={i} style={{ height: `${h}%` }} className="bg-brand-purple/40 flex-1 rounded-t-sm"></div>
+                {[40, 70, 50, 90, 60].map((h, index) => (
+                  <div key={`chart-bar-${index}`} style={{ height: `${h}%` }} className="bg-brand-purple/40 flex-1 rounded-t-sm"></div>
                 ))}
               </div>
             </div>

@@ -7,8 +7,8 @@ export default function AddressLoading() {
         <Title title="Address" subtitle="Billing Address" />
 
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="flex flex-col gap-2">
+          {[1, 2, 3, 4, 5, 6].map((id) => (
+            <div key={id} className="flex flex-col gap-2">
               <div className="h-4 w-20 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
               <div className="h-10 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
             </div>

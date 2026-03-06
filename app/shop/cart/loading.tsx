@@ -12,8 +12,8 @@ export default function CartLoading() {
             <div className="mb-5 h-5 w-32 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
 
             {/* Products In Cart Skeletons */}
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="mb-5 flex">
+            {[1, 2, 3].map((id) => (
+              <div key={id} className="mb-5 flex">
                 <div className="h-[100px] w-[100px] animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                 <div className="ml-5 flex w-full flex-col gap-2">
                   <div className="h-5 w-3/4 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />

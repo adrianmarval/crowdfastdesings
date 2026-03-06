@@ -1,24 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { ShoppingCart, Trash2 } from 'lucide-react';
 import type { CartProduct, Product } from '@/interfaces';
 import { useCartStore } from '@/store';
 import { Button } from '@/components/ui/button';
+import { useIsMounted } from '@/hooks';
 
 interface Props {
   product: Product;
 }
 
 export const AddToCart = ({ product }: Props) => {
-  const [loaded, setLoaded] = useState(false);
+  const loaded = useIsMounted();
   const cart = useCartStore((state) => state.cart);
   const addProductToCart = useCartStore((state) => state.addProductTocart);
   const removeProduct = useCartStore((state) => state.removeProduct);
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
 
   const cartProduct: CartProduct = {
     id: product.id,

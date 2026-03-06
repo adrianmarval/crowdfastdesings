@@ -114,8 +114,8 @@ export default async function ProductBySlugPage({ params }: Props) {
                     <h1 className={`mb-2 text-4xl font-bold ${titleFont.className}`}>{product.title}</h1>
                     <div className="flex items-center gap-2">
                       <div className="flex text-orange-400">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} size={14} fill="currentColor" />
+                        {[1, 2, 3, 4, 5].map((id) => (
+                          <Star key={id} size={14} fill="currentColor" />
                         ))}
                       </div>
                       <span className="text-xs text-gray-600 dark:text-gray-400">(124 Customer Reviews)</span>

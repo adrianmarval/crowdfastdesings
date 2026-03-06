@@ -1,20 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import Image from 'next/image';
 
 import { useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
 import { resolveProductImageUrl } from '@/lib/resolve-image-url';
+import { useIsMounted } from '@/hooks';
 
 export const ProductsInCart = () => {
-  const [loaded, setLoaded] = useState(false);
+  const loaded = useIsMounted();
   const productsInCart = useCartStore((state) => state.cart);
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
 
   if (!loaded) {
     return <p>Loading...</p>;
