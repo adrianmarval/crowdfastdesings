@@ -5,11 +5,11 @@ export default function ShopLoading() {
     <>
       <Title title="Templates Store" subtitle="High-quality interfaces designed to help you build faster." className="mb-8" />
 
-      <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {[...Array(8)].map((_, i) => (
           <div key={i} className="fade-in overflow-hidden rounded-md">
             {/* Image Placeholder */}
-            <div className="aspect-4/3 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+            <div className="aspect-5/3 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
 
             {/* Text Placeholders */}
             <div className="flex flex-col p-4">
