@@ -56,7 +56,7 @@ export const Sidebar = () => {
       {/* Sidemenu */}
       <nav
         className={clsx(
-          'fixed top-0 right-0 z-20 h-screen w-[500px] transform bg-white p-5 shadow-2xl transition-all duration-300 dark:bg-[#2f2d2d]',
+          'fixed top-0 right-0 z-20 h-screen w-full transform bg-white p-5 shadow-2xl transition-all duration-300 md:w-[500px] dark:bg-[#2f2d2d]',
           {
             'translate-x-full': !isSideMenuOpen,
           },
