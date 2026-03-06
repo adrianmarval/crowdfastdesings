@@ -17,6 +17,7 @@ import {
 import { useUiStore } from '@/store';
 import { authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
+import { GlobalSearch } from '../global-search/GlobalSearch';
 
 export const Sidebar = () => {
   const isSideMenuOpen = useUiStore((state) => state.isSideMenuOpen);
@@ -65,14 +66,7 @@ export const Sidebar = () => {
         <IoCloseOutline size={50} className="absolute top-5 right-5 cursor-pointer dark:text-gray-100" onClick={() => closeMenu()} />
 
         {/* Input */}
-        <div className="relative mt-14">
-          <IoSearchOutline size={20} className="absolute top-2 left-2 dark:text-gray-100" />
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full rounded border-b-2 border-gray-200 bg-gray-50 py-1 pr-10 pl-10 text-xl focus:border-blue-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
-          />
-        </div>
+        <GlobalSearch />
 
         {/* Menú */}
 
