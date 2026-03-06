@@ -48,13 +48,25 @@ export const TopMenu = () => {
 
       {/* Center Menu */}
       <div className="hidden sm:block">
-        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800" href="/shop/category/dashboards">
+        <Link
+          className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800"
+          href="/shop/category/dashboards"
+          prefetch={true}
+        >
           Dashboards
         </Link>
-        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800" href="/shop/category/ecommerce">
+        <Link
+          className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800"
+          href="/shop/category/ecommerce"
+          prefetch={true}
+        >
           E-Commerce
         </Link>
-        <Link className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800" href="/shop/category/ui-kits">
+        <Link
+          className="m-2 rounded-md p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800"
+          href="/shop/category/ui-kits"
+          prefetch={true}
+        >
           UI Kits
         </Link>
       </div>
