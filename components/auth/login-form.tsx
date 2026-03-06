@@ -49,7 +49,7 @@ export function LoginForm({ className, returnTo = '/shop', ...props }: LoginForm
       {
         onRequest: () => setLoading(true),
         onSuccess: () => {
-          router.push(returnTo);
+          window.location.href = returnTo;
         },
         onError: (ctx) => {
           setError(ctx.error.message);

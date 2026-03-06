@@ -54,7 +54,7 @@ export function SignupForm({ className, returnTo = '/shop', ...props }: SignupFo
         onRequest: () => setLoading(true),
         onSuccess: () => {
           setSuccess(true);
-          router.push(returnTo);
+          window.location.href = returnTo;
         },
         onError: (ctx) => {
           setError(ctx.error.message);
