@@ -28,7 +28,7 @@ export const TopMenu = () => {
         >
           <IoHomeOutline className="h-5 w-5" />
         </Link>
-        <Link href="/shop" className="flex items-center gap-1 transition-all hover:opacity-80 active:scale-95">
+        <Link prefetch={true} href="/shop" className="flex items-center gap-1 transition-all hover:opacity-80 active:scale-95">
           {/* <Image
             src="/logo.svg"
             alt="Crowdfast Logo"
