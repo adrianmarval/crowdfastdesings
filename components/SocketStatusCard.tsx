@@ -2,10 +2,26 @@
 
 import { socket } from '@/app/socket';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer } from 'react';
+
+type StatusState = { isConnected: boolean; transport: string };
+type StatusAction = { type: 'CONNECT'; transport: string } | { type: 'UPGRADE'; transport: string } | { type: 'DISCONNECT' };
+
+function statusReducer(state: StatusState, action: StatusAction): StatusState {
+  switch (action.type) {
+    case 'CONNECT':
+      return { isConnected: true, transport: action.transport };
+    case 'UPGRADE':
+      return { ...state, transport: action.transport };
+    case 'DISCONNECT':
+      return { isConnected: false, transport: 'N/A' };
+    default:
+      return state;
+  }
+}
 
 export function SocketStatusCard() {
-  const [status, setStatus] = useState({ isConnected: false, transport: 'N/A' });
+  const [status, dispatch] = useReducer(statusReducer, { isConnected: false, transport: 'N/A' });
 
   useEffect(() => {
     if (socket.connected) {
@@ -13,15 +29,15 @@ export function SocketStatusCard() {
     }
 
     function onConnect() {
-      setStatus({ isConnected: true, transport: socket.io.engine.transport.name });
+      dispatch({ type: 'CONNECT', transport: socket.io.engine.transport.name });
 
       socket.io.engine.on('upgrade', (transport) => {
-        setStatus((prev) => ({ ...prev, transport: transport.name }));
+        dispatch({ type: 'UPGRADE', transport: transport.name });
       });
     }
 
     function onDisconnect() {
-      setStatus({ isConnected: false, transport: 'N/A' });
+      dispatch({ type: 'DISCONNECT' });
     }
 
     socket.on('connect', onConnect);
