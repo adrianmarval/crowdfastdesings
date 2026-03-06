@@ -16,7 +16,7 @@ export const ProductGridItem = ({ product }: Props) => {
 
   return (
     <div className="fade-in overflow-hidden rounded-md">
-      <Link href={`/shop/product/${product.slug}`}>
+      <Link prefetch={true} href={`/shop/product/${product.slug}`}>
         <Image
           src={displayImage}
           alt={product.title}
@@ -31,7 +31,7 @@ export const ProductGridItem = ({ product }: Props) => {
       </Link>
 
       <div className="flex flex-col p-4">
-        <Link className="hover:text-blue-600" href={`/shop/product/${product.slug}`}>
+        <Link prefetch={true} className="hover:text-blue-600" href={`/shop/product/${product.slug}`}>
           {product.title}
         </Link>
         <span className="font-bold">${product.price_usd}</span>
